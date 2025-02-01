@@ -69,24 +69,53 @@ export function PatientsTable({
               
               {activeTab === "all" && (
                 <>
+                  <TableHead className="hidden md:table-cell">Temperature ({units[0]})</TableHead>
+                  <TableHead className="hidden md:table-cell">Pulse Rate ({units[1]})</TableHead>
+                  <TableHead className="hidden md:table-cell">Respiration Rate ({units[2]})</TableHead>
+                  <TableHead className="hidden md:table-cell">Blood Pressure ({units[3]})</TableHead>
+                  <TableHead className="hidden md:table-cell text-black"><b>Overall Vitals Score</b></TableHead>
+                  <TableHead className="hidden md:table-cell text-black"><b>Patient Score</b></TableHead>
+                  <TableHead className="hidden md:table-cell text-black"><b>Environment Score</b></TableHead>
+                  <TableHead className="hidden md:table-cell text-black"><b>Pre-Condition Score</b></TableHead>
+                  <TableHead className="hidden md:table-cell text-black"><b>Overall Score</b></TableHead>
+                </>
+              )}
+              {activeTab === "vitals" && (
+                <>
+                <TableHead className="hidden md:table-cell text-black"><b>Overall Vitals Score</b></TableHead>
                 <TableHead className="hidden md:table-cell">Temperature ({units[0]})</TableHead>
                 <TableHead className="hidden md:table-cell">Pulse Rate ({units[1]})</TableHead>
                 <TableHead className="hidden md:table-cell">Respiration Rate ({units[2]})</TableHead>
                 <TableHead className="hidden md:table-cell">Blood Pressure ({units[3]})</TableHead>
-                  <TableHead className="hidden md:table-cell">Patient Score</TableHead>
-                  <TableHead className="hidden md:table-cell">Environment Score</TableHead>
-                  <TableHead className="hidden md:table-cell">Pre-Condition Score</TableHead>
-                  <TableHead>Overall Score</TableHead>
+                <TableHead className="hidden md:table-cell">Blood Glucose Level</TableHead>
+                <TableHead className="hidden md:table-cell">Heart Rate Variability</TableHead>
+                <TableHead className="hidden md:table-cell">Blood Oxygen Saturation</TableHead>
                 </>
               )}
               {activeTab === "active" && (
-                <TableHead className="hidden md:table-cell"><b>Patient Score</b></TableHead>
+                <>
+                <TableHead className="hidden md:table-cell text-black"><b>Patient Score</b></TableHead>
+                <TableHead className="hidden md:table-cell">Time Since Last Visitor</TableHead>
+                <TableHead className="hidden md:table-cell">Time Since Last CAM Test</TableHead>
+                <TableHead className="hidden md:table-cell">Sleep Deprivation</TableHead>
+                <TableHead className="hidden md:table-cell">Body Weight Change</TableHead>
+                <TableHead className="hidden md:table-cell">Hydration Levels</TableHead>
+                </>
               )}
               {activeTab === "environment" && (
-                <TableHead className="hidden md:table-cell"><b>Environment Score</b></TableHead>
+                <>
+                  <TableHead className="hidden md:table-cell text-black"><b>Environment Score</b></TableHead>
+                  <TableHead className="hidden md:table-cell">Light Level</TableHead>
+                  <TableHead className="hidden md:table-cell">Noise Level</TableHead>
+                  <TableHead className="hidden md:table-cell">Time in Hallway</TableHead>
+                  <TableHead className="hidden md:table-cell">Room Change Frequency</TableHead>
+                  <TableHead className="hidden md:table-cell">Number of Patients in Room</TableHead>
+
+
+                </>
               )}
               {activeTab === "precon" && (
-                <TableHead className="hidden md:table-cell"><b>Pre-Condition Score</b></TableHead>
+                <TableHead className="hidden md:table-cell text-black"><b>Pre-Condition Score</b></TableHead>
               )}
               <TableHead>
                 <span className="sr-only">Actions</span>
