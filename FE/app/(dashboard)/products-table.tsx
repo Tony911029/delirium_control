@@ -103,7 +103,14 @@ export function PatientsTable({
                 </>
               )}
               {activeTab === "environment" && (
+                <>
                 <TableHead className="hidden md:table-cell text-black"><b>Environment Score</b></TableHead>
+                <TableHead className="hidden md:table-cell">Lighting Levels</TableHead>
+                <TableHead className="hidden md:table-cell">Noise Levels</TableHead>
+                <TableHead className="hidden md:table-cell">Time in Hallway</TableHead>
+                <TableHead className="hidden md:table-cell">Room Change Frequency</TableHead> 
+                <TableHead className="hidden md:table-cell">Number of Patients in Room</TableHead>
+                </>
               )}
               {activeTab === "precon" && (
                 <TableHead className="hidden md:table-cell text-blackx  "><b>Pre-Condition Score</b></TableHead>

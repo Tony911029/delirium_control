@@ -111,18 +111,27 @@ export function PatientRow({
         </>
       )}
       {activeTab === 'environment' && (
+        <>
         <TableCell className="hidden sm:table-cell">
           <span className="font-bold">
           {patient.env_score[0]}
           </span>
         </TableCell>
+        <TableCell className="hidden sm:table-cell">{patient.env_score_fields.lighting_levels[0]}</TableCell>
+        <TableCell className="hidden sm:table-cell">{patient.env_score_fields.noise_levels[0]}</TableCell>
+        <TableCell className="hidden sm:table-cell">{patient.env_score_fields.time_in_hallway[0]}</TableCell>
+        <TableCell className="hidden sm:table-cell">{patient.env_score_fields.room_change_frequency[0]}</TableCell>
+        <TableCell className="hidden sm:table-cell">{patient.env_score_fields.number_of_patients_in_room[0]}</TableCell>
+        </>
       )}
       {activeTab === 'precon' && (
+        <>
         <TableCell className="hidden sm:table-cell">
           <span className="font-bold">
           {patient.pre_condition_score}
           </span>
         </TableCell>
+        </>
       )}
     </TableRow>
   );
