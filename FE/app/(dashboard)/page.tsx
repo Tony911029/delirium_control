@@ -26,6 +26,7 @@ export default async function ProductsPage(
       <div className="flex items-center">
         <TabsList>
           <TabsTrigger value="all">Overall Score</TabsTrigger>
+          <TabsTrigger value="vitals">Vitals Score</TabsTrigger>
           <TabsTrigger value="active">Patient Score</TabsTrigger>
           <TabsTrigger value="environment">Environment Score</TabsTrigger>
           <TabsTrigger value="precon" className="hidden sm:flex">
@@ -52,6 +53,14 @@ export default async function ProductsPage(
           patients={patients}
           offset={newOffset ?? 0}
           totalPatients={totalPatients}
+        />
+      </TabsContent>
+      <TabsContent value="vitals">
+        <PatientsTable
+          patients={patients}
+          offset={newOffset ?? 0}
+          totalPatients={totalPatients}
+          activeTab='vitals'
         />
       </TabsContent>
       <TabsContent value="active">
