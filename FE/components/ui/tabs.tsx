@@ -53,3 +53,24 @@ const TabsContent = React.forwardRef<
 TabsContent.displayName = TabsPrimitive.Content.displayName
 
 export { Tabs, TabsList, TabsTrigger, TabsContent }
+
+export function ScoreTabs() {
+  return (
+    <Tabs defaultValue="env">
+      <TabsList>
+        <TabsTrigger value="env">Environment Score</TabsTrigger>
+        <TabsTrigger value="patient">Patient Score</TabsTrigger>
+        <TabsTrigger value="overall">Overall Score</TabsTrigger>
+      </TabsList>
+      <TabsContent value="env">
+        {/* Display environment score data here */}
+      </TabsContent>
+      <TabsContent value="patient">
+        {/* Display patient score data here */}
+      </TabsContent>
+      <TabsContent value="overall">
+        {/* Display overall score data here */}
+      </TabsContent>
+    </Tabs>
+  );
+}

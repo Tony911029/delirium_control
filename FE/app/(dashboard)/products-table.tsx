@@ -26,11 +26,13 @@ import { Button } from '@/components/ui/button';
 export function PatientsTable({
   patients,
   offset,
-  totalPatients
+  totalPatients,
+  activeTab = "all"
 }: {
   patients: Patient[];
   offset: number;
   totalPatients: number;
+  activeTab?: string;
 }) {
   let router = useRouter();
   let productsPerPage = 5;
@@ -64,14 +66,28 @@ export function PatientsTable({
               <TableHead>Age</TableHead>
               <TableHead>Gender</TableHead>
               <TableHead>Admitted At</TableHead>
-              <TableHead className="hidden md:table-cell">Temperature ({units[0]})</TableHead>
-              <TableHead className="hidden md:table-cell">Pulse Rate ({units[1]})</TableHead>
-              <TableHead className="hidden md:table-cell">Respiration Rate ({units[2]})</TableHead>
-              <TableHead className="hidden md:table-cell">Blood Pressure ({units[3]})</TableHead>
-              <TableHead className="hidden md:table-cell">Patient Score</TableHead>
-              <TableHead className="hidden md:table-cell">Environment Score</TableHead>
-              <TableHead className="hidden md:table-cell">Pre-Condition Score</TableHead>
-              <TableHead>Overall Score</TableHead>
+              
+              {activeTab === "all" && (
+                <>
+                <TableHead className="hidden md:table-cell">Temperature ({units[0]})</TableHead>
+                <TableHead className="hidden md:table-cell">Pulse Rate ({units[1]})</TableHead>
+                <TableHead className="hidden md:table-cell">Respiration Rate ({units[2]})</TableHead>
+                <TableHead className="hidden md:table-cell">Blood Pressure ({units[3]})</TableHead>
+                  <TableHead className="hidden md:table-cell">Patient Score</TableHead>
+                  <TableHead className="hidden md:table-cell">Environment Score</TableHead>
+                  <TableHead className="hidden md:table-cell">Pre-Condition Score</TableHead>
+                  <TableHead>Overall Score</TableHead>
+                </>
+              )}
+              {activeTab === "active" && (
+                <TableHead className="hidden md:table-cell"><b>Patient Score</b></TableHead>
+              )}
+              {activeTab === "environment" && (
+                <TableHead className="hidden md:table-cell"><b>Environment Score</b></TableHead>
+              )}
+              {activeTab === "precon" && (
+                <TableHead className="hidden md:table-cell"><b>Pre-Condition Score</b></TableHead>
+              )}
               <TableHead>
                 <span className="sr-only">Actions</span>
               </TableHead>
@@ -79,7 +95,7 @@ export function PatientsTable({
           </TableHeader>
           <TableBody>
             {patients.map((patient) => (
-              <PatientRow key={patient.id} patient={patient} />
+              <PatientRow key={patient.id} patient={patient} activeTab={activeTab} />
             ))}
           </TableBody>
         </Table>

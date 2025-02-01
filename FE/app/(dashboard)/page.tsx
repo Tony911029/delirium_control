@@ -27,12 +27,12 @@ export default async function ProductsPage(
         <TabsList>
           <TabsTrigger value="all">Overall Score</TabsTrigger>
           <TabsTrigger value="active">Patient Score</TabsTrigger>
-          <TabsTrigger value="draft">Environment Score</TabsTrigger>
-          <TabsTrigger value="archived" className="hidden sm:flex">
+          <TabsTrigger value="environment">Environment Score</TabsTrigger>
+          <TabsTrigger value="precon" className="hidden sm:flex">
             Precondition Score
           </TabsTrigger>
         </TabsList>
-        <div className="ml-auto flex items-center gap-2">
+        {/* <div className="ml-auto flex items-center gap-2">
           <Button size="sm" variant="outline" className="h-8 gap-1">
             <File className="h-3.5 w-3.5" />
             <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
@@ -45,13 +45,37 @@ export default async function ProductsPage(
               Add Product
             </span>
           </Button>
-        </div>
+        </div> */}
       </div>
       <TabsContent value="all">
         <PatientsTable
           patients={patients}
           offset={newOffset ?? 0}
           totalPatients={totalPatients}
+        />
+      </TabsContent>
+      <TabsContent value="active">
+        <PatientsTable
+          patients={patients}
+          offset={newOffset ?? 0}
+          totalPatients={totalPatients}
+          activeTab='active'
+        />
+      </TabsContent>
+      <TabsContent value="environment">
+        <PatientsTable
+          patients={patients}
+          offset={newOffset ?? 0}
+          totalPatients={totalPatients}
+          activeTab='environment'
+        />
+      </TabsContent>
+      <TabsContent value="precon">
+        <PatientsTable
+          patients={patients}
+          offset={newOffset ?? 0}
+          totalPatients={totalPatients}
+          activeTab='precon'
         />
       </TabsContent>
     </Tabs>
