@@ -1,3 +1,5 @@
+'use client';
+import { usePathname } from 'next/navigation'; // Correct import for server components
 import Link from 'next/link';
 import {
   Home,
@@ -15,7 +17,6 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
@@ -26,7 +27,7 @@ import {
   TooltipTrigger
 } from '@/components/ui/tooltip';
 import { Analytics } from '@vercel/analytics/react';
-import { User } from './user';
+// import { User } from './user';
 import { VercelLogo } from '@/components/icons';
 import Providers from './providers';
 import { NavItem } from './nav-item';
@@ -46,7 +47,7 @@ export default function DashboardLayout({
             <MobileNav />
             <DashboardBreadcrumb />
             <SearchInput />
-            <User />
+            {/* <User /> */}
           </header>
           <main className="grid flex-1 items-start gap-2 p-4 sm:px-6 sm:py-0 md:gap-4 bg-muted/40">
             {children}
@@ -66,9 +67,9 @@ function DesktopNav() {
           <Package className="h-5 w-5" />
         </NavItem>
 
-        <NavItem href="/data" label="Data">
+        {/* <NavItem href="/data" label="Data">
           <Users2 className="h-5 w-5" />
-        </NavItem>
+        </NavItem> */}
       </nav>
       <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
         <Tooltip>
@@ -147,26 +148,40 @@ function MobileNav() {
   );
 }
 
+// Dynamic Breadcrumb Function
 function DashboardBreadcrumb() {
+  const pathname = usePathname(); // Get the current route from the router
+
   return (
     <Breadcrumb className="hidden md:flex">
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Link href="#">Dashboard</Link>
+            <Link href="/">Dashboard</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink asChild>
-            <Link href="#">Patients</Link>
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbPage>All Products</BreadcrumbPage>
-        </BreadcrumbItem>
+        {/* Conditional rendering based on the current route */}
+        {pathname.includes('/patient') ? (
+          <>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href={pathname}>
+                  Patient ID: {getPatientId(pathname)}
+                </Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+          </>
+        ) : (
+          <></>
+        )}
       </BreadcrumbList>
     </Breadcrumb>
   );
+}
+
+// Function to extract patient ID from the URL
+function getPatientId(pathname: string) {
+  const match = pathname.match(/\/patient\/(\d+)/); // Assuming the URL format is "/patient/[patientId]"
+  return match ? match[1] : 'Unknown Patient';
 }
