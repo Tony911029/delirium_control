@@ -1,8 +1,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { File, PlusCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { ProductsTable } from './products-table';
-import { getProducts } from '@/lib/db';
+import { PatientsTable } from './products-table';
+// import { getProducts } from '@/lib/db';
+import { getPatients } from '@/lib/db';
 
 export default async function ProductsPage(
   props: {
@@ -12,23 +13,26 @@ export default async function ProductsPage(
   const searchParams = await props.searchParams;
   const search = searchParams.q ?? '';
   const offset = searchParams.offset ?? 0;
-  const { products, newOffset, totalProducts } = await getProducts(
-    search,
-    Number(offset)
-  );
+  // const { products, newOffset, totalProducts } = await getProducts(
+  //   search,
+  //   Number(offset)
+  // );
+  const patients = await getPatients();
+  const newOffset = 0;
+  const totalPatients = patients.length;
 
   return (
     <Tabs defaultValue="all">
       <div className="flex items-center">
         <TabsList>
-          <TabsTrigger value="all">All</TabsTrigger>
-          {/* <TabsTrigger value="active">Active</TabsTrigger>
-          <TabsTrigger value="draft">Draft</TabsTrigger>
+          <TabsTrigger value="all">Overall Score</TabsTrigger>
+          <TabsTrigger value="active">Patient Score</TabsTrigger>
+          <TabsTrigger value="draft">Environment Score</TabsTrigger>
           <TabsTrigger value="archived" className="hidden sm:flex">
-            Archived
-          </TabsTrigger> */}
+            Precondition Score
+          </TabsTrigger>
         </TabsList>
-        {/* <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-2">
           <Button size="sm" variant="outline" className="h-8 gap-1">
             <File className="h-3.5 w-3.5" />
             <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
@@ -41,13 +45,13 @@ export default async function ProductsPage(
               Add Product
             </span>
           </Button>
-        </div> */}
+        </div>
       </div>
       <TabsContent value="all">
-        <ProductsTable
-          products={products}
+        <PatientsTable
+          patients={patients}
           offset={newOffset ?? 0}
-          totalProducts={totalProducts}
+          totalPatients={totalPatients}
         />
       </TabsContent>
     </Tabs>

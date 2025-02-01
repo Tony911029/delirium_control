@@ -15,20 +15,22 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card';
-import { Product } from './product';
-import { SelectProduct } from '@/lib/db';
+import { PatientRow } from './product';
+// import { SelectProduct } from '@/lib/db';
+// import { SelectPatient } from '@/lib/db';
+import { Patient } from '@/lib/db';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export function ProductsTable({
-  products,
+export function PatientsTable({
+  patients,
   offset,
-  totalProducts
+  totalPatients
 }: {
-  products: SelectProduct[];
+  patients: Patient[];
   offset: number;
-  totalProducts: number;
+  totalPatients: number;
 }) {
   let router = useRouter();
   let productsPerPage = 5;
@@ -40,6 +42,8 @@ export function ProductsTable({
   function nextPage() {
     router.push(`/?offset=${offset}`, { scroll: false });
   }
+
+  const units = ['°C', 'bpm', 'bpm', 'mmHg'];
 
   return (
     <Card>
@@ -53,24 +57,29 @@ export function ProductsTable({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="hidden w-[100px] sm:table-cell">
-                <span className="sr-only">Image</span>
-              </TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Delerium Index</TableHead>
-              <TableHead className="hidden md:table-cell">Metric 1</TableHead>
-              <TableHead className="hidden md:table-cell">
-                Metric 2
-              </TableHead>
-              <TableHead className="hidden md:table-cell">Metric 3</TableHead>
+            
+              <TableHead>ID</TableHead>
+              <TableHead>First Name</TableHead>
+              <TableHead>Last Name</TableHead>
+              <TableHead>Age</TableHead>
+              <TableHead>Gender</TableHead>
+              <TableHead>Admitted At</TableHead>
+              <TableHead className="hidden md:table-cell">Temperature ({units[0]})</TableHead>
+              <TableHead className="hidden md:table-cell">Pulse Rate ({units[1]})</TableHead>
+              <TableHead className="hidden md:table-cell">Respiration Rate ({units[2]})</TableHead>
+              <TableHead className="hidden md:table-cell">Blood Pressure ({units[3]})</TableHead>
+              <TableHead className="hidden md:table-cell">Patient Score</TableHead>
+              <TableHead className="hidden md:table-cell">Environment Score</TableHead>
+              <TableHead className="hidden md:table-cell">Pre-Condition Score</TableHead>
+              <TableHead>Overall Score</TableHead>
               <TableHead>
                 <span className="sr-only">Actions</span>
               </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {products.map((product) => (
-              <Product key={product.id} product={product} />
+            {patients.map((patient) => (
+              <PatientRow key={patient.id} patient={patient} />
             ))}
           </TableBody>
         </Table>
@@ -80,9 +89,9 @@ export function ProductsTable({
           <div className="text-xs text-muted-foreground">
             Showing{' '}
             <strong>
-              {Math.max(0, Math.min(offset - productsPerPage, totalProducts) + 1)}-{offset}
+              {Math.max(0, Math.min(offset - productsPerPage, totalPatients) + 1)}-{offset}
             </strong>{' '}
-            of <strong>{totalProducts}</strong> products
+            of <strong>{totalPatients}</strong> products
           </div>
           <div className="flex">
             <Button
@@ -100,7 +109,7 @@ export function ProductsTable({
               variant="ghost"
               size="sm"
               type="submit"
-              disabled={offset + productsPerPage > totalProducts}
+              disabled={offset + productsPerPage > totalPatients}
             >
               Next
               <ChevronRight className="ml-2 h-4 w-4" />
