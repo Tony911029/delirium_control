@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+pydub
+langchain
+numpy<2
+torch
