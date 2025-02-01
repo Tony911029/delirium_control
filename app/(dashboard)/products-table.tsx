@@ -57,12 +57,12 @@ export function ProductsTable({
                 <span className="sr-only">Image</span>
               </TableHead>
               <TableHead>Name</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="hidden md:table-cell">Price</TableHead>
+              <TableHead>Delerium Index</TableHead>
+              <TableHead className="hidden md:table-cell">Metric 1</TableHead>
               <TableHead className="hidden md:table-cell">
-                Total Sales
+                Metric 2
               </TableHead>
-              <TableHead className="hidden md:table-cell">Created at</TableHead>
+              <TableHead className="hidden md:table-cell">Metric 3</TableHead>
               <TableHead>
                 <span className="sr-only">Actions</span>
               </TableHead>
