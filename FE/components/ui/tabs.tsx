@@ -58,6 +58,7 @@ export function ScoreTabs() {
   return (
     <Tabs defaultValue="env">
       <TabsList>
+        <TabsTrigger value="vitals">Vitals Score</TabsTrigger>
         <TabsTrigger value="env">Environment Score</TabsTrigger>
         <TabsTrigger value="patient">Patient Score</TabsTrigger>
         <TabsTrigger value="overall">Overall Score</TabsTrigger>
