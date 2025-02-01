@@ -1,0 +1,6 @@
+__pycache__
+fastapi-env
+.DS_Store
+.idea
+app/models/
+venv/
