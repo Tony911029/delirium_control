@@ -44,9 +44,9 @@ export function ProductsTable({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Products</CardTitle>
+        <CardTitle>Patients</CardTitle>
         <CardDescription>
-          Manage your products and view their sales performance.
+          Manage your patients and view their delirium index.
         </CardDescription>
       </CardHeader>
       <CardContent>
