@@ -7,7 +7,8 @@ import {
   YAxis,
   Tooltip,
   CartesianGrid,
-  ResponsiveContainer
+  ResponsiveContainer,
+  Label  // add this import
 } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Patient } from '@/lib/db';
@@ -116,9 +117,15 @@ export default function EnvironmentalFactors({ patient }: { patient: Patient; })
                     dataKey="time" 
                     label={{ value: 'Time', position: 'insideBottom', offset: -5 }} 
                   />
-                  <YAxis 
-                    label={{ value: 'Factor Units', angle: -90, position: 'insideLeft', offset: 15 }} 
-                  />
+                  <YAxis>
+                    <Label 
+                      value="Factor Units" 
+                      angle={-90} 
+                      position="insideLeft" 
+                      offset={15}
+                      style={{ textAnchor: 'middle', dominantBaseline: 'middle' }} 
+                    />
+                  </YAxis>
                   <Tooltip />
                   <CartesianGrid strokeDasharray="3 3" />
                   <Line type="monotone" dataKey="lighting" stroke="#8884d8" strokeWidth={2} dot={false} />

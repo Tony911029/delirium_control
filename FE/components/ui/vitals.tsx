@@ -9,7 +9,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  ResponsiveContainer
+  ResponsiveContainer,
+  Label // add this import
 } from 'recharts';
 
 export default function Vitals({ patient }: { patient: Patient }) {
@@ -53,43 +54,50 @@ export default function Vitals({ patient }: { patient: Patient }) {
       name: 'Temperature',
       unit: '°C',
       color: '#ff7300',
-      domain: [36, 39]
+      domain: [36, 39],
+      yAxisunit: '°C'
     },
     pulse_rate: {
       name: 'Pulse Rate',
       unit: 'bpm',
       color: '#ff0000',
-      domain: [70, 120]
+      domain: [70, 120],
+      yAxisunit: 'bpm'
     },
     respiration_rate: {
       name: 'Respiration Rate',
       unit: 'breaths/min',
       color: '#00ff00',
-      domain: [15, 30]
+      domain: [15, 30],
+      yAxisunit: 'breaths/min'
     },
     blood_pressure: {
       name: 'Blood Pressure',
       unit: 'mmHg',
       color: '#0000ff',
-      domain: [120, 165]
+      domain: [120, 165],
+      yAxisunit: 'mmHg'
     },
     bgl: {
       name: 'Blood Glucose Level',
       unit: 'mmol/L',
       color: '#2f8bbd',
-      domain: [4, 8]
+      domain: [4, 8],
+      yAxisunit: 'mmol/L'
     },
     hrv: {
       name: 'Heart Rate Variability',
       unit: 'ms',
       color: '#c400f3',
-      domain: [10, 30]
+      domain: [10, 30],
+      yAxisunit: 'ms'
     },
     blood_oxygen_saturation: {
       name: 'Blood Oxygen Saturation',
       unit: '%',
       color: '#a012ff',
-      domain: [85, 100]
+      domain: [85, 100],
+      yAxisunit: '%'
     }
   };
 
@@ -132,7 +140,7 @@ export default function Vitals({ patient }: { patient: Patient }) {
                         <ResponsiveContainer width="100%" height="100%">
                           <LineChart
                             data={createChartData(values)}
-                            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                            margin={{ top: 5, right: 30, left: 20, bottom: 15 }}
                           >
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis 
@@ -141,8 +149,17 @@ export default function Vitals({ patient }: { patient: Patient }) {
                               angle={-45}
                               textAnchor="end"
                               height={60}
+                              label={{ value: 'Time', position: 'insideBottom', offset: -15 }} 
                             />
-                            <YAxis domain={config.domain} />
+                            <YAxis domain={config.domain}>
+                              <Label 
+                                value={config.yAxisunit} 
+                                angle={-90} 
+                                position="insideLeft" 
+                                offset={5}
+                                style={{ textAnchor: 'middle', dominantBaseline: 'middle' }} 
+                              />
+                            </YAxis>
                             <Tooltip />
                             <Line
                               type="monotone"

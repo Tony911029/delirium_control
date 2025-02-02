@@ -9,7 +9,8 @@ import {
   Tooltip,
   CartesianGrid,
   ResponsiveContainer,
-  Bar
+  Bar,
+  Label
 } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Patient } from '@/lib/db';
@@ -133,14 +134,22 @@ export default function PatientCondition({ patient }: { patient: Patient }) {
           <Card className="col-span-2">
 			<CardContent>
 				<h2 className="text-md my-2">Hours of Sleep</h2>
-				<ResponsiveContainer width="100%" height={250}>
-				<BarChart data={sleepData}>
-					<XAxis dataKey="time" label={{ value: 'Time', position: 'insideBottom', offset: -3 }}/>
-					<YAxis domain={[0, 24]} label={{ value: 'hr', angle:-90, position: 'insideLeft', offset: 18 }}/>
-					<Tooltip />
-					<CartesianGrid strokeDasharray="3 3" />
-					<Bar dataKey="hours" fill={sleepData[sleepData.length - 1].hours < 5 ? '#ef4444' : '#4ade80'} />
-				</BarChart>
+				<ResponsiveContainer width="100%" height={260}>
+					<LineChart data={sleepData}>
+						<XAxis dataKey="time" label={{ value: 'Time', position: 'insideBottom', offset: -5 }} />
+						<YAxis>
+							<Label 
+								value="hr" 
+								angle={-90} 
+								position="insideLeft" 
+								offset={20}
+								style={{ textAnchor: 'middle', dominantBaseline: 'middle' }} 
+							/>
+						</YAxis>
+						<Tooltip />
+						<CartesianGrid strokeDasharray="3 3" />
+						<Line type="monotone" dataKey="hours" stroke="#00aaff" strokeWidth={2} dot={false} />
+					</LineChart>
 				</ResponsiveContainer>
 			</CardContent>
 		</Card>
@@ -151,8 +160,16 @@ export default function PatientCondition({ patient }: { patient: Patient }) {
               <h2 className="text-md my-2">Body Weight Change</h2>
               <ResponsiveContainer width="100%" height={250}>
                 <LineChart data={weightData}>
-                  <XAxis dataKey="time" label={{ value: 'Time', position: 'insideBottom', offset: -3 }}/>
-                  <YAxis domain={[-3, 3]} label={{ value: 'kg', angle:-90, position: 'insideLeft', offset: 18 }}/>
+                  <XAxis dataKey="time" label={{ value: 'Time', position: 'insideBottom', offset: -5 }} />
+                  <YAxis>
+                    <Label 
+                      value="kg" 
+                      angle={-90} 
+                      position="insideLeft" 
+                      offset={10}
+                      style={{ textAnchor: 'middle', dominantBaseline: 'middle' }} 
+                    />
+                  </YAxis>
                   <Tooltip />
                   <CartesianGrid strokeDasharray="3 3" />
                   <Line 
@@ -173,8 +190,16 @@ export default function PatientCondition({ patient }: { patient: Patient }) {
               <h2 className="text-md my-2">Hydration Levels</h2>
               <ResponsiveContainer width="100%" height={250}>
                 <LineChart data={hydrationData}>
-                  <XAxis dataKey="time" label={{ value: 'Time', position: 'insideBottom', offset: -3 }} />
-                  <YAxis domain={[-4,4]} label={{ value: 'USG', angle:-90, position: 'insideLeft', offset: 18 }}/>
+                  <XAxis dataKey="time" label={{ value: 'Time', position: 'insideBottom', offset: -5 }} />
+                  <YAxis>
+                    <Label 
+                      value="USG" 
+                      angle={-90} 
+                      position="insideLeft" 
+                      offset={10}
+                      style={{ textAnchor: 'middle', dominantBaseline: 'middle' }} 
+                    />
+                  </YAxis>
                   <Tooltip />
                   <CartesianGrid strokeDasharray="3 3" />
                   <Line 
