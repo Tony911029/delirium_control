@@ -18,7 +18,7 @@ import {
 import { PatientRow } from './product';
 import { Patient } from '@/lib/db';
 import { useRouter } from 'next/navigation';
-import { ChevronLeft, ChevronRight, ArrowUpDown } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowUpDown, Pause, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { log } from 'console';
@@ -39,16 +39,23 @@ export function PatientsTable({
 
   // Add currentIndex state
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const maxTimesteps = patients[0]?.overall_score.length || 0;
 
   // Add useEffect for cycling through timesteps
   useEffect(() => {
+    if (isPaused) return;
+
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % maxTimesteps);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [maxTimesteps]);
+  }, [maxTimesteps, isPaused]);
+
+  const togglePause = () => {
+    setIsPaused(prev => !prev);
+  };
 
   // Sort patients based on the current timestep
   const sortedPatients = [...patients].sort((a, b) => {
@@ -70,10 +77,26 @@ export function PatientsTable({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Patients</CardTitle>
-        <CardDescription>
-          Manage your patients and view their delirium index.
-        </CardDescription>
+        <div className="flex justify-between items-center">
+          <div>
+            <CardTitle>Patients</CardTitle>
+            <CardDescription>
+              Manage your patients and view their delirium index.
+            </CardDescription>
+          </div>
+          <Button
+            variant="outline"
+            size="lg"
+            onClick={togglePause}
+            className="ml-2 mr-15 pr-10 px-6 py-3"
+          >
+            {isPaused ? (
+              <Play className="h-6 w-6" />
+            ) : (
+              <Pause className="h-6 w-6" />
+            )}
+          </Button>
+        </div>
       </CardHeader>
       <CardContent>
         <Table>
@@ -151,10 +174,10 @@ export function PatientsTable({
                     <b>Patient Score</b>
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
-                    Time Since Last Visitor (hr)
+                    Time Last Visitor (hr)
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
-                    Time Since Last CAM Test (hr)
+                    Last CAM Test (hr)
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
                     Sleep Time (hr)
@@ -163,7 +186,7 @@ export function PatientsTable({
                     Body Weight Change (kg)
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
-                    Hydration Levels (USG)
+                    Hydration Levels (mL)
                   </TableHead>
                 </>
               )}
