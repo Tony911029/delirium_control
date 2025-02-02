@@ -95,7 +95,7 @@ export const getEmployees = (): Employee[] => [
 export const getPatients = (): Patient[] => [
   {
     id: '1',
-    first_name: 'Linda',
+    first_name: 'Linda*',
     last_name: 'Kowalski',
     age: 76,
     gender: 'Female',
@@ -264,7 +264,7 @@ export const getPatients = (): Patient[] => [
   },
   {
     id: '2',
-    first_name: 'Alex',
+    first_name: 'Alex*',
     last_name: 'Huang',
     age: 84,
     gender: 'Male',
@@ -435,7 +435,7 @@ export const getPatients = (): Patient[] => [
   },
   {
     id: '3',
-    first_name: 'Ronald',
+    first_name: 'Ronald*',
     last_name: 'McDonald',
     age: 72,
     gender: 'Male',
