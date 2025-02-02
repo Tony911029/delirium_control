@@ -129,14 +129,7 @@ export function PatientRow({
           <TableCell className="hidden sm:table-cell text-black font-bold cursor-pointer" onClick={() => onTabChange?.("precon")}>
             {patient.pre_condition_score}
           </TableCell>
-          <TableCell>
-            <Link href="/">
-              <Button aria-haspopup="true" size="icon" variant="ghost">
-                <MoreHorizontal className="h-4 w-4" />
-                <span className="sr-only">Toggle menu</span>
-              </Button>
-            </Link>
-          </TableCell>
+
         </>
       )}
     </TableRow>
