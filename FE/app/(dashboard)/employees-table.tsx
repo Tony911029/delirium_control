@@ -17,8 +17,6 @@ import {
 } from '@/components/ui/card';
 import { PatientRow } from './product';
 import { EmployeeRow } from './employee';
-// import { SelectProduct } from '@/lib/db';
-// import { SelectPatient } from '@/lib/db';
 import { Patient } from '@/lib/db';
 import { Employee } from '@/lib/db';
 import { useRouter } from 'next/navigation';

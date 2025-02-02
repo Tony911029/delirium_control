@@ -45,7 +45,7 @@ export type Patient = {
   patient_score_fields: {
     time_since_last_visitor: number[];
     time_since_last_cam_test: number[];
-    sleep_deprivation: boolean[];
+    sleep_deprivation: number[];
     body_weight_change: number[];
     hydration_levels: number[];
   };
@@ -648,7 +648,7 @@ export const getPatients = (): Patient[] => [
     enriched_notes: {
       age_greater_than_65: {
         classification: true,
-        enrichment_text: '72 years old',
+        enrichment_text: '81 years old',
         note_source: 'physician'
       },
       drug_and_alcohol_withdrawal: {
@@ -774,7 +774,7 @@ export const getPatients = (): Patient[] => [
     enriched_notes: {
       age_greater_than_65: {
         classification: true,
-        enrichment_text: '72 years old',
+        enrichment_text: '75 years old',
         note_source: 'physician'
       },
       drug_and_alcohol_withdrawal: {
@@ -899,9 +899,9 @@ export const getPatients = (): Patient[] => [
     },
     enriched_notes: {
       age_greater_than_65: {
-        classification: true,
-        enrichment_text: '72 years old',
-        note_source: 'physician'
+        classification: false,
+        enrichment_text: null,
+        note_source: ''
       },
       drug_and_alcohol_withdrawal: {
         classification: true,
@@ -1026,7 +1026,7 @@ export const getPatients = (): Patient[] => [
     enriched_notes: {
       age_greater_than_65: {
         classification: true,
-        enrichment_text: '72 years old',
+        enrichment_text: '89 years old',
         note_source: 'physician'
       },
       drug_and_alcohol_withdrawal: {
@@ -1152,7 +1152,7 @@ export const getPatients = (): Patient[] => [
     enriched_notes: {
       age_greater_than_65: {
         classification: true,
-        enrichment_text: '72 years old',
+        enrichment_text: '70 years old',
         note_source: 'physician'
       },
       drug_and_alcohol_withdrawal: {
@@ -1278,7 +1278,7 @@ export const getPatients = (): Patient[] => [
     enriched_notes: {
       age_greater_than_65: {
         classification: true,
-        enrichment_text: '72 years old',
+        enrichment_text: '99 years old',
         note_source: 'physician'
       },
       drug_and_alcohol_withdrawal: {
@@ -1404,7 +1404,7 @@ export const getPatients = (): Patient[] => [
     enriched_notes: {
       age_greater_than_65: {
         classification: true,
-        enrichment_text: '72 years old',
+        enrichment_text: '82 years old',
         note_source: 'physician'
       },
       drug_and_alcohol_withdrawal: {
@@ -1530,7 +1530,7 @@ export const getPatients = (): Patient[] => [
     enriched_notes: {
       age_greater_than_65: {
         classification: true,
-        enrichment_text: '72 years old',
+        enrichment_text: '90 years old',
         note_source: 'physician'
       },
       drug_and_alcohol_withdrawal: {

@@ -100,10 +100,10 @@ export default function PatientCondition({ patient }: { patient: Patient }) {
             </CardContent>
           </Card>
 
-          <Card className={`bg-opacity-10 ${ currentData.sleep_deprivation ? 'bg-red-400' : 'bg-green-400 '}`}>
+          <Card className={`bg-opacity-10 ${ currentData.sleep_deprivation < 4 ? 'bg-red-400' : 'bg-green-400 '}`}>
             <CardContent>
-              <h2 className="text-md my-2">Sleep Deprivation</h2>
-              <p className="text-3xl font-bold">{currentData.sleep_deprivation ? "Yes" : "No"}</p>
+              <h2 className="text-md my-2">Sleep Time</h2>
+              <p className="text-3xl font-bold">{currentData.sleep_deprivation} hrs</p>
             </CardContent>
           </Card>
 
@@ -117,7 +117,7 @@ export default function PatientCondition({ patient }: { patient: Patient }) {
           <Card className={`bg-opacity-10 ${ currentData.hydration_levels > 120 ? 'bg-red-400' : currentData.hydration_levels > 60 ? 'bg-yellow-400' : 'bg-green-400 '}`}>
             <CardContent>
               <h2 className="text-md my-2">Hydration Levels</h2>
-              <p className="text-3xl font-bold">{currentData.hydration_levels} L</p>
+              <p className="text-3xl font-bold">{currentData.hydration_levels} mL</p>
             </CardContent>
           </Card>
 
