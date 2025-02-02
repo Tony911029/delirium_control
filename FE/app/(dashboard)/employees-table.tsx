@@ -52,9 +52,9 @@ export function EmployeesTable({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Employees</CardTitle>
+        <CardTitle>Staff</CardTitle>
         <CardDescription>
-          Manage your Employees and view their availability.
+          Manage your staff and view their availability.
         </CardDescription>
       </CardHeader>
       <CardContent>

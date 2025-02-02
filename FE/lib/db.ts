@@ -74,8 +74,8 @@ export type Patient = {
 export const getEmployees = (): Employee[] => [
   {
     id: '1',
-    first_name: 'Jane',
-    last_name: 'Doe',
+    first_name: 'Linda',
+    last_name: 'Kowalski',
     age: 32,
     gender: "Female",
     time_started: '2024-02-01T02:00:00',
@@ -83,8 +83,8 @@ export const getEmployees = (): Employee[] => [
   },
   {
     id: '2',
-    first_name: 'John',
-    last_name: 'Doe',
+    first_name: 'Joseph',
+    last_name: 'Lister',
     age: 34,
     gender: "Male",
     time_started: '2024-02-01T08:00:00',
