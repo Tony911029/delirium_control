@@ -1,9 +1,6 @@
-// import { db, products } from 'lib/db';
-// import { db, products } from 'lib/db';
+export const dynamic = 'force-dynamic';
 
-// export const dynamic = 'force-dynamic';
-
-// export async function GET() {
+export async function GET() {
 
   // await db.insert(products).values([
   //   {

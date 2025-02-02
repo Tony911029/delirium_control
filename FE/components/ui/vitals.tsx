@@ -22,7 +22,7 @@ export default function Vitals({ patient }: { patient: Patient }) {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTimestep(prev => prev >= maxTimesteps ? 1 : prev + 1);
+      setCurrentTimestep((prev) => (prev >= maxTimesteps ? 1 : prev + 1));
     }, 5000);
     return () => clearInterval(interval);
   }, []);
@@ -30,7 +30,7 @@ export default function Vitals({ patient }: { patient: Patient }) {
   const createChartData = (values: number[]) => {
     const startIndex = currentTimestep - 1;
     const dataPoints = [];
-    
+
     for (let i = 0; i < WINDOW_SIZE; i++) {
       const index = (startIndex + i) % values.length;
       const actualIndex = index >= 0 ? index : index + values.length;
@@ -39,7 +39,7 @@ export default function Vitals({ patient }: { patient: Patient }) {
         value: Number(values[actualIndex].toFixed(1))
       });
     }
-    
+
     return dataPoints;
   };
 
@@ -93,7 +93,8 @@ export default function Vitals({ patient }: { patient: Patient }) {
       <Card className="w-full">
         <CardHeader>
           <CardTitle>
-            Overall Vitals Score - {createChartData(overall_vitals_score)[WINDOW_SIZE-1].value}
+            Overall Vitals Score -{' '}
+            {createChartData(overall_vitals_score)[WINDOW_SIZE - 1].value}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -117,39 +118,50 @@ export default function Vitals({ patient }: { patient: Patient }) {
               </LineChart>
             </ResponsiveContainer>
           </div>
-          {Object.entries(vitals).map(([key, values]) => {
-            const config = vitalConfigs[key as keyof typeof vitalConfigs];
-            return (
-              <div key={key} className="w-full c-2">
-                <CardHeader>
-                  <CardTitle>
-                    {config.name} - {createChartData(values)[WINDOW_SIZE-1].value} {config.unit}
-                  </CardTitle>
-                </CardHeader>
-
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart
-                      data={createChartData(values)}
-                      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="timestep" />
-                      <YAxis domain={config.domain} />
-                      <Tooltip />
-                      <Line
-                        type="monotone"
-                        dataKey="value"
-                        stroke={config.color}
-                        strokeWidth={2}
-                        dot={false}
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-            );
-          })}
+          <div className="grid grid-cols-2 gap-4">
+            {Object.entries(vitals).map(([key, values]) => {
+              const config = vitalConfigs[key as keyof typeof vitalConfigs];
+              return (
+                <details key={key} className="w-full">
+                  <summary className="cursor-pointer">
+                    <Card className="w-full">
+                      <CardHeader>
+                        <CardTitle>
+                          {config.name} -{' '}
+                          {createChartData(values)[WINDOW_SIZE - 1].value}{' '}
+                          {config.unit}
+                        </CardTitle>
+                      </CardHeader>
+                    </Card>
+                  </summary>
+                  <Card className="w-full mt-2">
+                    <CardContent>
+                      <div className="h-64">
+                        <ResponsiveContainer width="100%" height="100%">
+                          <LineChart
+                            data={createChartData(values)}
+                            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                          >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="timestep" />
+                            <YAxis domain={config.domain} />
+                            <Tooltip />
+                            <Line
+                              type="monotone"
+                              dataKey="value"
+                              stroke={config.color}
+                              strokeWidth={2}
+                              dot={false}
+                            />
+                          </LineChart>
+                        </ResponsiveContainer>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </details>
+              );
+            })}
+          </div>
         </CardContent>
       </Card>
     </div>
