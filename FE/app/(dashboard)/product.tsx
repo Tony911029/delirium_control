@@ -33,7 +33,7 @@ export function PatientRow({
       <TableCell className="hidden sm:table-cell">{patient.age}</TableCell>
       <TableCell className="hidden sm:table-cell">{patient.gender}</TableCell>
       <TableCell className="hidden sm:table-cell">
-        {format(new Date(patient.admitted_at), 'MMMM d, HH:mm')}
+        {format(new Date(patient.admitted_at), 'MMM d, HH:mm')}
       </TableCell>
 
       {activeTab === 'all' && (
