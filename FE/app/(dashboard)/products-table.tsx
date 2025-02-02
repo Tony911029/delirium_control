@@ -27,7 +27,7 @@ export function PatientsTable({
   patients,
   offset,
   totalPatients,
-  activeTab = "all"
+  activeTab = 'all'
 }: {
   patients: Patient[];
   offset: number;
@@ -59,63 +59,120 @@ export function PatientsTable({
         <Table>
           <TableHeader>
             <TableRow>
-            
               <TableHead>ID</TableHead>
               <TableHead>First Name</TableHead>
               <TableHead>Last Name</TableHead>
               <TableHead>Age</TableHead>
               <TableHead>Gender</TableHead>
               <TableHead>Admitted At</TableHead>
-              
-              {activeTab === "all" && (
-                <>
-                  <TableHead className="hidden md:table-cell">Temperature ({units[0]})</TableHead>
-                  <TableHead className="hidden md:table-cell">Pulse Rate ({units[1]})</TableHead>
-                  <TableHead className="hidden md:table-cell">Respiration Rate ({units[2]})</TableHead>
-                  <TableHead className="hidden md:table-cell">Blood Pressure ({units[3]})</TableHead>
-                  <TableHead className="hidden md:table-cell text-black"><b>Overall Vitals Score</b></TableHead>
-                  <TableHead className="hidden md:table-cell text-black"><b>Patient Score</b></TableHead>
-                  <TableHead className="hidden md:table-cell text-black"><b>Environment Score</b></TableHead>
-                  <TableHead className="hidden md:table-cell text-black"><b>Predisposition Score</b></TableHead>
-                  <TableHead className="hidden md:table-cell text-black"><b>Overall Score</b></TableHead>
-                </>
-              )}
-              {activeTab === "vitals" && (
-                <>
-                <TableHead className="hidden md:table-cell text-black"><b>Overall Vitals Score</b></TableHead>
-                <TableHead className="hidden md:table-cell">Temperature ({units[0]})</TableHead>
-                <TableHead className="hidden md:table-cell">Pulse Rate ({units[1]})</TableHead>
-                <TableHead className="hidden md:table-cell">Respiration Rate ({units[2]})</TableHead>
-                <TableHead className="hidden md:table-cell">Blood Pressure ({units[3]})</TableHead>
-                <TableHead className="hidden md:table-cell">Blood Glucose Level</TableHead>
-                <TableHead className="hidden md:table-cell">Heart Rate Variability</TableHead>
-                <TableHead className="hidden md:table-cell">Blood Oxygen Saturation</TableHead>
-                </>
-              )}
-              {activeTab === "active" && (
-                <>
-                <TableHead className="hidden md:table-cell text-black"><b>Patient Score</b></TableHead>
-                <TableHead className="hidden md:table-cell">Time Since Last Visitor</TableHead>
-                <TableHead className="hidden md:table-cell">Time Since Last CAM Test</TableHead>
-                <TableHead className="hidden md:table-cell">Sleep Deprivation</TableHead>
-                <TableHead className="hidden md:table-cell">Body Weight Change</TableHead>
-                <TableHead className="hidden md:table-cell">Hydration Levels</TableHead>
-                </>
-              )}
-              {activeTab === "environment" && (
-                <>
-                  <TableHead className="hidden md:table-cell text-black"><b>Environment Score</b></TableHead>
-                  <TableHead className="hidden md:table-cell">Light Level</TableHead>
-                  <TableHead className="hidden md:table-cell">Noise Level</TableHead>
-                  <TableHead className="hidden md:table-cell">Time in Hallway</TableHead>
-                  <TableHead className="hidden md:table-cell">Room Change Frequency</TableHead>
-                  <TableHead className="hidden md:table-cell">Number of Patients in Room</TableHead>
 
-
+              {activeTab === 'all' && (
+                <>
+                  <TableHead className="hidden md:table-cell">
+                    Temperature ({units[0]})
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Pulse Rate ({units[1]})
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Respiration Rate ({units[2]})
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Blood Pressure ({units[3]})
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell text-black">
+                    <b>Overall Vitals Score</b>
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell text-black">
+                    <b>Patient Score</b>
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell text-black">
+                    <b>Environment Score</b>
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell text-black">
+                    <b>Predisposition Score</b>
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell text-black">
+                    <b>Overall Score</b>
+                  </TableHead>
                 </>
               )}
-              {activeTab === "precon" && (
-                <TableHead className="hidden md:table-cell text-black"><b>Predisposition Score</b></TableHead>
+              {activeTab === 'vitals' && (
+                <>
+                  <TableHead className="hidden md:table-cell text-black">
+                    <b>Overall Vitals Score</b>
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Temperature ({units[0]})
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Pulse Rate ({units[1]})
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Respiration Rate ({units[2]})
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Blood Pressure ({units[3]})
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Blood Glucose Level
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Heart Rate Variability
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Blood Oxygen Saturation
+                  </TableHead>
+                </>
+              )}
+              {activeTab === 'active' && (
+                <>
+                  <TableHead className="hidden md:table-cell text-black">
+                    <b>Patient Score</b>
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Time Since Last Visitor
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Time Since Last CAM Test
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Sleep Deprivation
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Body Weight Change
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Hydration Levels
+                  </TableHead>
+                </>
+              )}
+              {activeTab === 'environment' && (
+                <>
+                  <TableHead className="hidden md:table-cell text-black">
+                    <b>Environment Score</b>
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Light Level
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Noise Level
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Time in Hallway
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Room Change Frequency
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Number of Patients in Room
+                  </TableHead>
+                </>
+              )}
+              {activeTab === 'precon' && (
+                <TableHead className="hidden md:table-cell text-black">
+                  <b>Predisposition Score</b>
+                </TableHead>
               )}
               <TableHead>
                 <span className="sr-only">Actions</span>
@@ -124,7 +181,11 @@ export function PatientsTable({
           </TableHeader>
           <TableBody>
             {patients.map((patient) => (
-              <PatientRow key={patient.id} patient={patient} activeTab={activeTab} />
+              <PatientRow
+                key={patient.id}
+                patient={patient}
+                activeTab={activeTab}
+              />
             ))}
           </TableBody>
         </Table>
@@ -132,11 +193,14 @@ export function PatientsTable({
       <CardFooter>
         <form className="flex items-center w-full justify-between">
           <div className="text-xs text-muted-foreground">
-            Showing{' '}
-            <strong>
-              {Math.max(0, Math.min(offset - productsPerPage, totalPatients) + 1)}-{offset}
-            </strong>{' '}
-            of <strong>{totalPatients}</strong> products
+            {totalPatients > 0 ? (
+              <>
+                Showing <strong>{totalPatients}</strong> of{' '}
+                <strong>{totalPatients}</strong> patients
+              </>
+            ) : (
+              <span>Loading patients...</span>
+            )}
           </div>
           <div className="flex">
             <Button
