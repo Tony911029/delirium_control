@@ -159,7 +159,7 @@ export function PatientsTable({
                     Noise Level (db)
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
-                    Time in Hallway (hr)
+                    Time in Hallway (min)
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
                     Room Change Frequency
