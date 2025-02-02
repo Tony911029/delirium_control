@@ -72,7 +72,7 @@ export function PatientsTable({
   }
 
   function nextPage() {
-    router.push(`/?offset=${offset}`, { scroll: false });
+    router.push(`/?offset=${offset + productsPerPage}`, { scroll: false });
   }
 
   const units = ['°C', 'bpm', 'bpm', 'mmHg', 'mmol/L', 'ms', '%'];
@@ -242,8 +242,11 @@ export function PatientsTable({
           <div className="text-xs text-muted-foreground">
             {totalPatients > 0 ? (
               <>
-                Showing <strong>{totalPatients}</strong> of{' '}
-                <strong>{totalPatients}</strong> patients
+                Showing{' '}
+                <strong>
+                  {patients.length > 0 ? offset + patients.length : 0}
+                </strong>{' '}
+                of <strong>{totalPatients}</strong> patients
               </>
             ) : (
               <span>Loading patients...</span>
@@ -255,7 +258,7 @@ export function PatientsTable({
               variant="ghost"
               size="sm"
               type="submit"
-              disabled={offset === productsPerPage}
+              disabled={offset === 0}
             >
               <ChevronLeft className="mr-2 h-4 w-4" />
               Prev

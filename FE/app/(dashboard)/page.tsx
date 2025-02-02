@@ -18,9 +18,10 @@ export default async function ProductsPage(
   
   const patients = await getPatients();
   const employees = await getEmployees();
-  const newOffset = 0;
+  const newOffset = Number(offset);
   const totalPatients = patients.length;
   const totalStaff = employees.length;
+  const displayedPatients = patients.slice(newOffset, newOffset + 5);
 
   return (
     <Tabs defaultValue="all">
@@ -37,35 +38,35 @@ export default async function ProductsPage(
       </div>
 
       <TabsContent value="all">
-        <PatientsTable patients={patients} offset={newOffset ?? 0} totalPatients={totalPatients} />
+        <PatientsTable patients={displayedPatients} offset={newOffset ?? 0} totalPatients={totalPatients} />
         <div className="mt-6">
           <EmployeesTable employees={employees} offset={newOffset ?? 0} totalStaff={totalStaff} />
         </div>
       </TabsContent>
 
       <TabsContent value="vitals">
-        <PatientsTable patients={patients} offset={newOffset ?? 0} totalPatients={totalPatients} activeTab="vitals" />
+        <PatientsTable patients={displayedPatients} offset={newOffset ?? 0} totalPatients={totalPatients} activeTab="vitals" />
         <div className="mt-6">
           <EmployeesTable employees={employees} offset={newOffset ?? 0} totalStaff={totalStaff} activeTab="vitals" />
         </div>
       </TabsContent>
 
       <TabsContent value="active">
-        <PatientsTable patients={patients} offset={newOffset ?? 0} totalPatients={totalPatients} activeTab="active" />
+        <PatientsTable patients={displayedPatients} offset={newOffset ?? 0} totalPatients={totalPatients} activeTab="active" />
         <div className="mt-6">
           <EmployeesTable employees={employees} offset={newOffset ?? 0} totalStaff={totalStaff} activeTab="active" />
         </div>
       </TabsContent>
 
       <TabsContent value="environment">
-        <PatientsTable patients={patients} offset={newOffset ?? 0} totalPatients={totalPatients} activeTab="environment" />
+        <PatientsTable patients={displayedPatients} offset={newOffset ?? 0} totalPatients={totalPatients} activeTab="environment" />
         <div className="mt-6">
           <EmployeesTable employees={employees} offset={newOffset ?? 0} totalStaff={totalStaff} activeTab="environment" />
         </div>
       </TabsContent>
 
       <TabsContent value="precon">
-        <PatientsTable patients={patients} offset={newOffset ?? 0} totalPatients={totalPatients} activeTab="precon" />
+        <PatientsTable patients={displayedPatients} offset={newOffset ?? 0} totalPatients={totalPatients} activeTab="precon" />
         <div className="mt-6">
           <EmployeesTable employees={employees} offset={newOffset ?? 0} totalStaff={totalStaff} activeTab="precon" />
         </div>
