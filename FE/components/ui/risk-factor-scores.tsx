@@ -17,7 +17,8 @@ import { Patient } from '@/lib/db';
 export default function RiskFactorScores({ patient }: { patient: Patient }) {
   const maxPoints = 20;
   const intervalMs = 5000;
-  const startTime = Date.now() - (patient.overall_score.length - 1) * intervalMs;
+  const startTime =
+    Date.now() - (patient.overall_score.length - 1) * intervalMs;
 
   const formatTime = (timestamp: number) =>
     new Date(timestamp).toLocaleTimeString([], {
@@ -27,13 +28,15 @@ export default function RiskFactorScores({ patient }: { patient: Patient }) {
     });
 
   // Initialize chart data
-  const initialChartData = patient.overall_score.map((_, i) => ({
-    time: formatTime(startTime + i * intervalMs),
-    overall_score: patient.overall_score[i],
-    overall_vitals_score: patient.overall_vitals_score[i],
-    patient_score: patient.patient_score[i],
-    env_score: patient.env_score[i]
-  })).slice(-maxPoints);
+  const initialChartData = patient.overall_score
+    .map((_, i) => ({
+      time: formatTime(startTime + i * intervalMs),
+      overall_score: patient.overall_score[i],
+      overall_vitals_score: patient.overall_vitals_score[i],
+      patient_score: patient.patient_score[i],
+      env_score: patient.env_score[i]
+    }))
+    .slice(-maxPoints);
 
   const [index, setIndex] = useState(patient.overall_score.length - 1);
   const [chartData, setChartData] = useState(initialChartData);
@@ -53,7 +56,7 @@ export default function RiskFactorScores({ patient }: { patient: Patient }) {
 
   useEffect(() => {
     const newTime = formatTime(startTime + index * intervalMs);
-    
+
     setCurrentData({
       overall_score: patient.overall_score[index],
       overall_vitals_score: patient.overall_vitals_score[index],
@@ -72,30 +75,71 @@ export default function RiskFactorScores({ patient }: { patient: Patient }) {
           env_score: patient.env_score[index]
         }
       ];
-      return newChartData.length > maxPoints ? newChartData.slice(1) : newChartData;
+      return newChartData.length > maxPoints
+        ? newChartData.slice(1)
+        : newChartData;
     });
   }, [index]);
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle className='flex justify-between'>
+        <CardTitle className="flex justify-between">
           <span>Risk Factor Scores</span>
-          <span className={`p-2 w-11 h-11 text-center rounded-full ${currentData.overall_score < 4 ? "bg-green-200" : currentData.overall_score < 8 ? "bg-yellow-200" : "bg-red-200"}`}>{currentData.overall_score}</span>
+          <span
+            className={`p-2 w-11 h-11 text-center rounded-full ${currentData.overall_score < 4 ? 'bg-blue-200' : currentData.overall_score < 8 ? 'bg-yellow-200' : 'bg-orange-200'}`}
+          >
+            {currentData.overall_score}
+          </span>
         </CardTitle>
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={chartData}>
-            <XAxis dataKey="time" label={{ value: 'Time', position: 'insideBottom', offset: -3 }}/>
-            <YAxis domain={[0, 10]} label={{ value: 'score', angle:-90, position: 'insideLeft', offset: 18 }}/>
+            <XAxis
+              dataKey="time"
+              label={{ value: 'Time', position: 'insideBottom', offset: -3 }}
+            />
+            <YAxis
+              domain={[0, 10]}
+              label={{
+                value: 'score',
+                angle: -90,
+                position: 'insideLeft',
+                offset: 18
+              }}
+            />
             <Tooltip />
             <CartesianGrid strokeDasharray="3 3" />
             <Legend />
-            <Line type="monotone" dataKey="overall_score" stroke="#8884d8" strokeWidth={2} dot={false} />
-            <Line type="monotone" dataKey="overall_vitals_score" stroke="#82ca9d" strokeWidth={2} dot={false} />
-            <Line type="monotone" dataKey="patient_score" stroke="#ff7300" strokeWidth={2} dot={false} />
-            <Line type="monotone" dataKey="env_score" stroke="#ffc658" strokeWidth={2} dot={false} />
+            <Line
+              type="monotone"
+              dataKey="overall_score"
+              stroke="#8884d8"
+              strokeWidth={2}
+              dot={false}
+            />
+            <Line
+              type="monotone"
+              dataKey="overall_vitals_score"
+              stroke="#82ca9d"
+              strokeWidth={2}
+              dot={false}
+            />
+            <Line
+              type="monotone"
+              dataKey="patient_score"
+              stroke="#ff7300"
+              strokeWidth={2}
+              dot={false}
+            />
+            <Line
+              type="monotone"
+              dataKey="env_score"
+              stroke="#ffc658"
+              strokeWidth={2}
+              dot={false}
+            />
           </LineChart>
         </ResponsiveContainer>
       </CardContent>

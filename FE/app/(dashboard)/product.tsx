@@ -150,6 +150,10 @@ export function PatientRow({
           </TableCell>
         </>
       )}
+
+      <TableCell className="hidden sm:table-cell">
+        {patient.patient_status}
+      </TableCell>
     </TableRow>
   );
 }

@@ -108,7 +108,7 @@ export default function Vitals({ patient }: { patient: Patient }) {
           <CardTitle className="flex justify-between">
             <span>Patient Vitals</span>
             <span
-              className={`p-2 w-11 h-11 text-center rounded-full ${overall_vitals_score[overall_vitals_score.length - 1] < 4 ? 'bg-green-200' : overall_vitals_score[overall_vitals_score.length - 1] < 8 ? 'bg-yellow-200' : 'bg-red-200'}`}
+              className={`p-2 w-11 h-11 text-center rounded-full ${overall_vitals_score[overall_vitals_score.length - 1] < 4 ? 'bg-blue-200' : overall_vitals_score[overall_vitals_score.length - 1] < 8 ? 'bg-yellow-200' : 'bg-orange-200'}`}
             >
               {overall_vitals_score[overall_vitals_score.length - 1]}
             </span>
@@ -119,7 +119,10 @@ export default function Vitals({ patient }: { patient: Patient }) {
             {Object.entries(vitals).map(([key, values]) => {
               const config = vitalConfigs[key as keyof typeof vitalConfigs];
               return (
-                <details key={key} className="w-full [&_summary::-webkit-details-marker]:hidden">
+                <details
+                  key={key}
+                  className="w-full [&_summary::-webkit-details-marker]:hidden"
+                >
                   <summary className="cursor-pointer list-none">
                     <Card className="w-full hover:bg-gray-50 transition-colors">
                       <CardHeader className="flex flex-row items-center justify-between text-lg font-medium">
@@ -143,7 +146,7 @@ export default function Vitals({ patient }: { patient: Patient }) {
                             margin={{ top: 5, right: 30, left: 20, bottom: 15 }}
                           >
                             <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis 
+                            <XAxis
                               dataKey="time"
                               tick={{ fontSize: 12 }}
                               angle={-45}
