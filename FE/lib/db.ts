@@ -86,6 +86,16 @@ interface EnrichedNotes {
   };
 }
 
+export type Employee = {
+  id: string;
+  first_name: string;
+  last_name: string;
+  age: number;  
+  gender: 'Male' | 'Female' | 'Other';
+  time_started: string; // ISO date string
+  time_ends: string; // ISO date string
+}
+
 export type Patient = {
   id: string;
   first_name: string;
@@ -133,6 +143,18 @@ export type Patient = {
   pre_condition_score: number;
   overall_score: number[];
 };
+
+export const getEmployees = (): Employee[] => [
+  {
+    id: '1',
+    first_name: 'John',
+    last_name: 'Doe',
+    age: 32,
+    gender: "Female",
+    time_started: '2024-02-01T02:00:00',
+    time_ends: '2024-02-02T02:00:00'
+  },
+];
 
 export const getPatients = (): Patient[] => [
   {

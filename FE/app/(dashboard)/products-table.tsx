@@ -136,7 +136,7 @@ export function PatientsTable({
             <strong>
               {Math.max(0, Math.min(offset - productsPerPage, totalPatients) + 1)}-{offset}
             </strong>{' '}
-            of <strong>{totalPatients}</strong> products
+            of <strong>{totalPatients}</strong> Patients
           </div>
           <div className="flex">
             <Button

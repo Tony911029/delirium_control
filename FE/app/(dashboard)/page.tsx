@@ -2,8 +2,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { File, PlusCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { PatientsTable } from './products-table';
+import { EmployeesTable } from './employees-table';
 // import { getProducts } from '@/lib/db';
 import { getPatients } from '@/lib/db';
+import { getEmployees } from '@/lib/db';
 
 export default async function ProductsPage(
   props: {
@@ -18,8 +20,10 @@ export default async function ProductsPage(
   //   Number(offset)
   // );
   const patients = await getPatients();
+  const employees = await getEmployees();
   const newOffset = 0;
   const totalPatients = patients.length;
+  const totalEmployees = employees.length;
 
   return (
     <Tabs defaultValue="all">
@@ -54,6 +58,12 @@ export default async function ProductsPage(
           offset={newOffset ?? 0}
           totalPatients={totalPatients}
         />
+        <EmployeesTable
+          employees={employees}
+          offset={newOffset ?? 0}
+          totalEmployees={totalEmployees}
+          activeTab='all'
+        />
       </TabsContent>
       <TabsContent value="vitals">
         <PatientsTable
@@ -61,6 +71,12 @@ export default async function ProductsPage(
           offset={newOffset ?? 0}
           totalPatients={totalPatients}
           activeTab='vitals'
+        />
+        <EmployeesTable
+          employees={employees}
+          offset={newOffset ?? 0}
+          totalEmployees={totalEmployees}
+          activeTab='all'
         />
       </TabsContent>
       <TabsContent value="active">
@@ -70,6 +86,12 @@ export default async function ProductsPage(
           totalPatients={totalPatients}
           activeTab='active'
         />
+        <EmployeesTable
+          employees={employees}
+          offset={newOffset ?? 0}
+          totalEmployees={totalEmployees}
+          activeTab='all'
+        />
       </TabsContent>
       <TabsContent value="environment">
         <PatientsTable
@@ -78,13 +100,26 @@ export default async function ProductsPage(
           totalPatients={totalPatients}
           activeTab='environment'
         />
+        <EmployeesTable
+          employees={employees}
+          offset={newOffset ?? 0}
+          totalEmployees={totalEmployees}
+          activeTab='all'
+        />
       </TabsContent>
+      
       <TabsContent value="precon">
         <PatientsTable
           patients={patients}
           offset={newOffset ?? 0}
           totalPatients={totalPatients}
           activeTab='precon'
+        />
+        <EmployeesTable
+          employees={employees}
+          offset={newOffset ?? 0}
+          totalEmployees={totalEmployees}
+          activeTab='all'
         />
       </TabsContent>
     </Tabs>
