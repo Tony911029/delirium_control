@@ -16,12 +16,12 @@ import {
   CardTitle
 } from '@/components/ui/card';
 import { PatientRow } from './product';
-// import { SelectProduct } from '@/lib/db';
-// import { SelectPatient } from '@/lib/db';
 import { Patient } from '@/lib/db';
 import { useRouter } from 'next/navigation';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowUpDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useState, useEffect } from 'react';
+import { log } from 'console';
 
 export function PatientsTable({
   patients,
@@ -36,6 +36,26 @@ export function PatientsTable({
 }) {
   let router = useRouter();
   let productsPerPage = 5;
+
+  // Add currentIndex state
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const maxTimesteps = patients[0]?.overall_score.length || 0;
+
+  // Add useEffect for cycling through timesteps
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % maxTimesteps);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [maxTimesteps]);
+
+  // Sort patients based on the current timestep
+  const sortedPatients = [...patients].sort((a, b) => {
+    const aScore = a.overall_score[currentIndex];
+    const bScore = b.overall_score[currentIndex];
+    return bScore - aScore; // Always descending
+  });
 
   function prevPage() {
     router.back();
@@ -137,7 +157,7 @@ export function PatientsTable({
                     Time Since Last CAM Test (hr)
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
-                    Sleep Deprivation 
+                    Sleep Time (hr)
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
                     Body Weight Change (kg)
@@ -180,11 +200,12 @@ export function PatientsTable({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {patients.map((patient) => (
+            {sortedPatients.map((patient) => (
               <PatientRow
                 key={patient.id}
                 patient={patient}
                 activeTab={activeTab}
+                currentIndex={currentIndex}
               />
             ))}
           </TableBody>
@@ -195,11 +216,8 @@ export function PatientsTable({
           <div className="text-xs text-muted-foreground">
             {totalPatients > 0 ? (
               <>
-                Showing{' '}
-                <strong>
-                  {totalPatients}
-                </strong>{' '}
-                of <strong>{totalPatients}</strong> patients
+                Showing <strong>{totalPatients}</strong> of{' '}
+                <strong>{totalPatients}</strong> patients
               </>
             ) : (
               <span>Loading patients...</span>
