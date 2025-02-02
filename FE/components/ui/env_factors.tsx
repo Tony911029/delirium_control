@@ -1,26 +1,115 @@
+"use client";
+import { useState, useEffect } from 'react';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  ResponsiveContainer
+} from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Patient } from '@/lib/db';
 
-export default function EnvironmentalFactors({
-  patient
-}: {
-  patient: Patient;
-}) {
+export default function EnvironmentalFactors({ patient }: { patient: Patient; }) {
+  const maxPoints = 20;
+  const intervalMs = 5000;
+  const dataLength = patient.env_score_fields.lighting_levels.length;
+  const startTime = Date.now() - (dataLength - 1) * intervalMs;
+
+  const formatTime = (timestamp: number) =>
+    new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  
+  const createTrendDataPoint = (i: number) => ({
+    time: formatTime(startTime + i * intervalMs),
+    lighting: patient.env_score_fields.lighting_levels[i],
+    noise: patient.env_score_fields.noise_levels[i],
+    hallway: patient.env_score_fields.time_in_hallway[i],
+    roomChange: patient.env_score_fields.room_change_frequency[i],
+    patients: patient.env_score_fields.number_of_patients_in_room[i]
+  });
+
+  const initialTrendData = Array.from({ length: dataLength }, (_, i) => createTrendDataPoint(i)).slice(-maxPoints);
+  const [index, setIndex] = useState(dataLength - 1);
+  const [trendData, setTrendData] = useState(initialTrendData);
+  const [currentData, setCurrentData] = useState(createTrendDataPoint(dataLength - 1));
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex(prev => (prev + 1) % dataLength);
+    }, intervalMs);
+    return () => clearInterval(interval);
+  }, [dataLength]);
+
+  useEffect(() => {
+    const newPoint = createTrendDataPoint(index);
+    setCurrentData(newPoint);
+    setTrendData(prev => {
+      const updated = [...prev, newPoint];
+      return updated.length > maxPoints ? updated.slice(1) : updated;
+    });
+  }, [index]);
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Environmental Factors</CardTitle>
+        <CardTitle>Environmental Factors Trend</CardTitle>
       </CardHeader>
-      <CardContent>{patient.env_score_fields.lighting_levels[0]}</CardContent>
+      <CardContent>
+        <div className="grid grid-cols-2 gap-4 p-4">
+          {/* Display current values */}
+          <Card>
+            <CardContent>
+              <h2 className="text-md my-2">Lighting Level</h2>
+              <p className="text-4xl font-semibold">{currentData.lighting}</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent>
+              <h2 className="text-md my-2">Noise Level</h2>
+              <p className="text-4xl font-semibold">{currentData.noise}</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent>
+              <h2 className="text-md my-2">Time in Hallway</h2>
+              <p className="text-4xl font-semibold">{currentData.hallway}</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent>
+              <h2 className="text-md my-2">Room Change Frequency</h2>
+              <p className="text-4xl font-semibold">{currentData.roomChange}</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent>
+              <h2 className="text-md my-2">Patients in Room</h2>
+              <p className="text-4xl font-semibold">{currentData.patients}</p>
+            </CardContent>
+          </Card>
+          {/* Trend Analysis Chart */}
+          <Card className="col-span-2">
+            <CardContent>
+              <h2 className="text-md my-2">Trend Analysis</h2>
+              <ResponsiveContainer width="100%" height={300}>
+                <LineChart data={trendData}>
+                  <XAxis dataKey="time" />
+                  <YAxis />
+                  <Tooltip />
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <Line type="monotone" dataKey="lighting" stroke="#8884d8" strokeWidth={2} dot={false} />
+                  <Line type="monotone" dataKey="noise" stroke="#82ca9d" strokeWidth={2} dot={false} />
+                  <Line type="monotone" dataKey="hallway" stroke="#ffc658" strokeWidth={2} dot={false} />
+                  <Line type="monotone" dataKey="roomChange" stroke="#ff7300" strokeWidth={2} dot={false} />
+                  <Line type="monotone" dataKey="patients" stroke="#413ea0" strokeWidth={2} dot={false} />
+                </LineChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+        </div>
+      </CardContent>
     </Card>
   );
 }
-
-// "env_score_fields": {
-//   "lighting_levels": [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-//   "noise_levels": [6,7, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
-//   "time_in_hallway": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10] ,
-//   "room_change_frequency": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-//   "number_of_patients_in_room": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-// },
-// "env_score": [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 10, 10],
