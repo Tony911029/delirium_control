@@ -122,17 +122,17 @@ export default function EnvironmentalFactors({
               <p className="text-4xl font-semibold">{currentData.roomChange}</p>
             </CardContent>
           </Card>
-          <Card className={getBgClass(currentData.patients, 1, 3)}>
+          <Card className={`${getBgClass(currentData.patients, 1, 3)} col-span-2`}>
             <CardContent>
-              <h2 className="text-md my-2">Patients in Room</h2>
-              <p className="text-4xl font-semibold">{currentData.patients}</p>
+              <h2 className="text-md text-center my-2">Patients in Room</h2>
+              <p className="text-4xl text-center font-semibold">{currentData.patients}</p>
             </CardContent>
           </Card>
 
           {/* Trend Analysis Chart */}
-          <Card className="col-span-2">
+          <Card>
             <CardContent>
-              <h2 className="text-md my-2">Trend Analysis</h2>
+              <h2 className="text-md my-2">Lighting trend</h2>
               <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={trendData}>
                   <XAxis
@@ -145,7 +145,7 @@ export default function EnvironmentalFactors({
                   />
                   <YAxis>
                     <Label 
-                      value="Factor Units" 
+                      value="Lumens" 
                       angle={-90} 
                       position="insideLeft" 
                       offset={15}
@@ -161,15 +161,41 @@ export default function EnvironmentalFactors({
                     strokeWidth={2}
                     dot={false}
                   />
-                  <Line
-                    type="monotone"
-                    dataKey="noise"
-                    stroke="#82ca9d"
-                    strokeWidth={2}
-                    dot={false}
+                </LineChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent>
+              <h2 className="text-md my-2">Noise Analysis</h2>
+              <ResponsiveContainer width="100%" height={300}>
+                <LineChart data={trendData}>
+                  <XAxis
+                    dataKey="time"
+                    label={{
+                      value: 'Time',
+                      position: 'insideBottom',
+                      offset: -5
+                    }}
                   />
-
-
+                  <YAxis>
+                    <Label 
+                      value="dB" 
+                      angle={-90} 
+                      position="insideLeft" 
+                      offset={15}
+                      style={{ textAnchor: 'middle', dominantBaseline: 'middle' }} 
+                    />
+                  </YAxis>
+                  <Tooltip />
+                  <CartesianGrid strokeDasharray="3 3" />
+                    <Line
+                      type="monotone"
+                      dataKey="noise"
+                      stroke="#82ca9d"
+                      strokeWidth={2}
+                      dot={false}
+                    />
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>
@@ -179,3 +205,4 @@ export default function EnvironmentalFactors({
     </Card>
   );
 }
+
