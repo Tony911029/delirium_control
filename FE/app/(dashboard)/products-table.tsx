@@ -193,11 +193,17 @@ export function PatientsTable({
       <CardFooter>
         <form className="flex items-center w-full justify-between">
           <div className="text-xs text-muted-foreground">
-            Showing{' '}
-            <strong>
-              {Math.max(0, Math.min(offset - productsPerPage, totalPatients) + 1)}-{offset}
-            </strong>{' '}
-            of <strong>{totalPatients}</strong> Patients
+            {totalPatients > 0 ? (
+              <>
+                Showing{' '}
+                <strong>
+                  {totalPatients}
+                </strong>{' '}
+                of <strong>{totalPatients}</strong> patients
+              </>
+            ) : (
+              <span>Loading patients...</span>
+            )}
           </div>
           <div className="flex">
             <Button

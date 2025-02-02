@@ -23,7 +23,7 @@ export default async function ProductsPage(
   const employees = await getEmployees();
   const newOffset = 0;
   const totalPatients = patients.length;
-  const totalEmployees = employees.length;
+  const totalStaff = employees.length;
 
   return (
     <Tabs defaultValue="all">
@@ -61,7 +61,7 @@ export default async function ProductsPage(
         <EmployeesTable
           employees={employees}
           offset={newOffset ?? 0}
-          totalEmployees={totalEmployees}
+          totalStaff={totalStaff}
           activeTab='all'
         />
       </TabsContent>
@@ -75,7 +75,7 @@ export default async function ProductsPage(
         <EmployeesTable
           employees={employees}
           offset={newOffset ?? 0}
-          totalEmployees={totalEmployees}
+          totalStaff={totalStaff}
           activeTab='all'
         />
       </TabsContent>
@@ -89,7 +89,7 @@ export default async function ProductsPage(
         <EmployeesTable
           employees={employees}
           offset={newOffset ?? 0}
-          totalEmployees={totalEmployees}
+          totalStaff={totalStaff}
           activeTab='all'
         />
       </TabsContent>
@@ -103,7 +103,7 @@ export default async function ProductsPage(
         <EmployeesTable
           employees={employees}
           offset={newOffset ?? 0}
-          totalEmployees={totalEmployees}
+          totalStaff={totalStaff}
           activeTab='all'
         />
       </TabsContent>
@@ -118,7 +118,7 @@ export default async function ProductsPage(
         <EmployeesTable
           employees={employees}
           offset={newOffset ?? 0}
-          totalEmployees={totalEmployees}
+          totalStaff={totalStaff}
           activeTab='all'
         />
       </TabsContent>

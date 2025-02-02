@@ -28,12 +28,12 @@ import { Button } from '@/components/ui/button';
 export function EmployeesTable({
   employees,
   offset,
-  totalEmployees,
+  totalStaff,
   activeTab = "all"
 }: {
   employees: Employee[];
   offset: number;
-  totalEmployees: number;
+  totalStaff: number;
   activeTab?: string;
 }) {
   let router = useRouter();
@@ -61,7 +61,6 @@ export function EmployeesTable({
         <Table>
           <TableHeader>
             <TableRow>
-            
               <TableHead>ID</TableHead>
               <TableHead>First Name</TableHead>
               <TableHead>Last Name</TableHead>
@@ -84,11 +83,17 @@ export function EmployeesTable({
       <CardFooter>
         <form className="flex items-center w-full justify-between">
           <div className="text-xs text-muted-foreground">
-            Showing{' '}
-            <strong>
-              {Math.max(0, Math.min(offset - productsPerPage, totalEmployees) + 1)}-{offset}
-            </strong>{' '}
-            of <strong>{totalEmployees}</strong> Employees
+            {totalStaff > 0 ? (
+              <>
+                Showing{' '}
+                <strong>
+                  {totalStaff}
+                </strong>{' '}
+                of <strong>{totalStaff}</strong> staff
+              </>
+            ) : (
+              <span>Loading staff...</span>
+            )}
           </div>
           <div className="flex">
             <Button
@@ -106,7 +111,7 @@ export function EmployeesTable({
               variant="ghost"
               size="sm"
               type="submit"
-              disabled={offset + productsPerPage > totalEmployees}
+              disabled={offset + productsPerPage > totalStaff}
             >
               Next
               <ChevronRight className="ml-2 h-4 w-4" />

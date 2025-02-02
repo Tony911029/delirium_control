@@ -77,10 +77,10 @@ export default function PatientPage() {
             </CardHeader>
           </Card>
           <div className="grid grid-cols-2 gap-4">
+            <Predispositions patient={patient} />
             <Vitals patient={patient} />
             <EnvironmentalFactors patient={patient} />
             <PatientCondition patient={patient} />
-            <Predispositions patient={patient} />
           </div>
         </div>
       )}
