@@ -92,32 +92,12 @@ export default function Vitals({ patient }: { patient: Patient }) {
     <div className="space-y-4 col-span-2">
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>
-            Overall Vitals Score -{' '}
-            {createChartData(overall_vitals_score)[WINDOW_SIZE - 1].value}
-          </CardTitle>
+		<CardTitle className='flex justify-between'>
+          <span>Patient Vitals</span>
+          <span className={`p-2 w-11 h-11 text-center rounded-full ${overall_vitals_score[overall_vitals_score.length - 1] < 4 ? "bg-green-200" : overall_vitals_score[overall_vitals_score.length - 1] < 8 ? "bg-yellow-200" : "bg-red-200"}`}>{overall_vitals_score[overall_vitals_score.length - 1]}</span>
+        </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart
-                data={createChartData(overall_vitals_score)}
-                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="timestep" />
-                <YAxis domain={[0, 10]} />
-                <Tooltip />
-                <Line
-                  type="monotone"
-                  dataKey="value"
-                  stroke="#8884d8"
-                  strokeWidth={2}
-                  dot={false}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
           <div className="grid grid-cols-2 gap-4">
             {Object.entries(vitals).map(([key, values]) => {
               const config = vitalConfigs[key as keyof typeof vitalConfigs];
@@ -125,12 +105,10 @@ export default function Vitals({ patient }: { patient: Patient }) {
                 <details key={key} className="w-full [&_summary::-webkit-details-marker]:hidden">
                   <summary className="cursor-pointer list-none">
                     <Card className="w-full hover:bg-gray-50 transition-colors">
-                      <CardHeader className="flex flex-row items-center justify-between">
-                        <CardTitle>
+                      <CardHeader className="flex flex-row items-center justify-between text-lg font-medium">
                           {config.name} -{' '}
                           {createChartData(values)[WINDOW_SIZE - 1].value}{' '}
                           {config.unit}
-                        </CardTitle>
                         <div className="h-4 w-4 transition-transform duration-200 [details[open]>&]:rotate-180">
                           ▼
                         </div>

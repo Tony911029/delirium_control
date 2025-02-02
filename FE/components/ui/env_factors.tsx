@@ -54,7 +54,10 @@ export default function EnvironmentalFactors({ patient }: { patient: Patient; })
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Environmental Factors Trend</CardTitle>
+	  <CardTitle className='flex justify-between'>
+		  <span>Environmental Factors</span>
+          <span className={`p-2 w-11 h-11 text-center rounded-full ${patient.env_score[patient.env_score.length -1] < 4 ? "bg-green-200" : patient.env_score[patient.env_score.length -1] < 8 ? "bg-yellow-200" : "bg-red-200"}`}>{patient.env_score[patient.env_score.length -1]}</span>
+          </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-2 gap-4 p-4">

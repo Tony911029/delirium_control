@@ -22,6 +22,7 @@ import Vitals from '@/components/ui/vitals';
 import EnvironmentalFactors from '@/components/ui/env_factors';
 import PatientCondition from '@/components/ui/patient_condition';
 import Predispositions from '@/components/ui/predispositions';
+import RiskFactorScores from '@/components/ui/risk-factor-scores';
 
 // Placeholder data for patient
 
@@ -77,6 +78,7 @@ export default function PatientPage() {
             </CardHeader>
           </Card>
           <div className="grid grid-cols-2 gap-4">
+			<RiskFactorScores patient={patient} />
             <Predispositions patient={patient} />
             <Vitals patient={patient} />
             <EnvironmentalFactors patient={patient} />
