@@ -43,6 +43,14 @@ export function PatientsTable({
   let router = useRouter();
   let productsPerPage = 5;
 
+  const activeTabLookup = {
+    'all': 'overall_score',
+    'vitals': 'overall_vitals_score',
+    'active': 'patient_score',
+    'environment': 'env_score',
+    'precon': 'pre_condition_score'
+  }
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const maxTimesteps = patients[0]?.overall_score.length || 0;
@@ -61,9 +69,15 @@ export function PatientsTable({
     setIsPaused((prev) => !prev);
   };
 
+  console.log("active tab", activeTab)
+  console.log("active tab lookup", activeTabLookup[activeTab as keyof typeof activeTabLookup])
+
+  
+
   const sortedPatients = [...patients].sort((a, b) => {
-    const aScore = a.overall_score[currentIndex];
-    const bScore = b.overall_score[currentIndex];
+    let fieldToSort = activeTabLookup[activeTab as keyof typeof activeTabLookup];
+    const aScore = a[fieldToSort as keyof Patient][currentIndex];
+    const bScore = b[fieldToSort as keyof Patient][currentIndex];
     return bScore - aScore;
   });
 
