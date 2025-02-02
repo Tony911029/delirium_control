@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Patient } from '@/lib/db';
+'use client';
+
 import { useEffect, useState } from 'react';
 import {
   LineChart,
@@ -11,113 +11,94 @@ import {
   ResponsiveContainer,
   Legend
 } from 'recharts';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Patient } from '@/lib/db';
 
 export default function RiskFactorScores({ patient }: { patient: Patient }) {
-  // Accessing all the score data from the patient object
-  const overall_vitals_score = patient.overall_vitals_score;
-  const patient_score = patient.patient_score;
-  const env_score = patient.env_score;
-  const overall_score = patient.overall_score;
+  const maxPoints = 20;
+  const intervalMs = 5000;
+  const startTime = Date.now() - (patient.overall_score.length - 1) * intervalMs;
 
-  const maxTimesteps = overall_vitals_score.length;
-  const WINDOW_SIZE = 20;
+  const formatTime = (timestamp: number) =>
+    new Date(timestamp).toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
 
-  const [currentTimestep, setCurrentTimestep] = useState(1);
+  // Initialize chart data
+  const initialChartData = patient.overall_score.map((_, i) => ({
+    time: formatTime(startTime + i * intervalMs),
+    overall_score: patient.overall_score[i],
+    overall_vitals_score: patient.overall_vitals_score[i],
+    patient_score: patient.patient_score[i],
+    env_score: patient.env_score[i]
+  })).slice(-maxPoints);
 
-  const formatTime = (timestamp: number) => {
-    const date = new Date(timestamp);
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-  };
+  const [index, setIndex] = useState(patient.overall_score.length - 1);
+  const [chartData, setChartData] = useState(initialChartData);
+  const [currentData, setCurrentData] = useState({
+    overall_score: patient.overall_score[index],
+    overall_vitals_score: patient.overall_vitals_score[index],
+    patient_score: patient.patient_score[index],
+    env_score: patient.env_score[index]
+  });
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTimestep((prev) => (prev >= maxTimesteps ? 1 : prev + 1));
-    }, 5000);
+      setIndex((prevIndex) => (prevIndex + 1) % patient.overall_score.length);
+    }, intervalMs);
     return () => clearInterval(interval);
-  }, [maxTimesteps]);
+  }, []);
 
-  const createChartData = (values: number[], startTime: number) => {
-    const startIndex = currentTimestep - 1;
-    const dataPoints = [];
+  useEffect(() => {
+    const newTime = formatTime(startTime + index * intervalMs);
+    
+    setCurrentData({
+      overall_score: patient.overall_score[index],
+      overall_vitals_score: patient.overall_vitals_score[index],
+      patient_score: patient.patient_score[index],
+      env_score: patient.env_score[index]
+    });
 
-    for (let i = 0; i < WINDOW_SIZE; i++) {
-      const index = (startIndex + i) % values.length;
-      const actualIndex = index >= 0 ? index : index + values.length;
-      dataPoints.push({
-        time: startTime + i * 5000, // Incrementing the timestamp for each data point (in milliseconds)
-        value: Number(values[actualIndex].toFixed(1)),
-      });
-    }
-
-    return dataPoints;
-  };
-
-  // Create chart data for each score
-  const startTime = Date.now(); // Using current time as the start time
-  const overall_vitals_data = createChartData(overall_vitals_score, startTime);
-  const patient_score_data = createChartData(patient_score, startTime);
-  const env_score_data = createChartData(env_score, startTime);
-  const overall_score_data = createChartData(overall_score, startTime);
+    setChartData((prev) => {
+      const newChartData = [
+        ...prev,
+        {
+          time: newTime,
+          overall_score: patient.overall_score[index],
+          overall_vitals_score: patient.overall_vitals_score[index],
+          patient_score: patient.patient_score[index],
+          env_score: patient.env_score[index]
+        }
+      ];
+      return newChartData.length > maxPoints ? newChartData.slice(1) : newChartData;
+    });
+  }, [index]);
 
   return (
-    <div className="space-y-4 col-span-2">
-      <Card className="w-full">
-        <CardHeader>
-          <CardTitle>Risk Factor Scores</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ResponsiveContainer height={300}>
-            <LineChart>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis 
-                dataKey="time" 
-                tickFormatter={(timestamp) => formatTime(timestamp)} // Format the timestamp for display
-              />
-              <YAxis domain={[0, 10]} />
-              <Tooltip />
-              <Legend />
-
-              {/* Adding all the lines to represent the different scores */}
-              <Line
-                type="monotone"
-                dataKey="value"
-                data={overall_vitals_data}
-                stroke="#8884d8"
-                strokeWidth={2}
-                dot={false}
-                name="Overall Vitals"
-              />
-              <Line
-                type="monotone"
-                dataKey="value"
-                data={patient_score_data}
-                stroke="#82ca9d"
-                strokeWidth={2}
-                dot={false}
-                name="Patient Score"
-              />
-              <Line
-                type="monotone"
-                dataKey="value"
-                data={env_score_data}
-                stroke="#ffc658"
-                strokeWidth={2}
-                dot={false}
-                name="Environmental Score"
-              />
-              <Line
-                type="monotone"
-                dataKey="value"
-                data={overall_score_data}
-                stroke="#387908"
-                strokeWidth={2}
-                dot={false}
-                name="Overall Score"
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </CardContent>
-      </Card>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle className='flex justify-between'>
+          <span>Risk Factor Scores</span>
+          <span className={`p-2 w-11 h-11 text-center rounded-full ${currentData.overall_score < 4 ? "bg-green-200" : currentData.overall_score < 8 ? "bg-yellow-200" : "bg-red-200"}`}>{currentData.overall_score}</span>
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={chartData}>
+            <XAxis dataKey="time" />
+            <YAxis domain={[0, 10]} />
+            <Tooltip />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Legend />
+            <Line type="monotone" dataKey="overall_score" stroke="#8884d8" strokeWidth={2} dot={false} />
+            <Line type="monotone" dataKey="overall_vitals_score" stroke="#82ca9d" strokeWidth={2} dot={false} />
+            <Line type="monotone" dataKey="patient_score" stroke="#ff7300" strokeWidth={2} dot={false} />
+            <Line type="monotone" dataKey="env_score" stroke="#ffc658" strokeWidth={2} dot={false} />
+          </LineChart>
+        </ResponsiveContainer>
+      </CardContent>
+    </Card>
   );
 }
