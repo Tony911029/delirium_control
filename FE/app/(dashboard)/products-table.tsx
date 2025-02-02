@@ -29,6 +29,11 @@ import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { log } from 'console';
 
+type ScoreField = keyof Pick<
+  Patient,
+  'overall_score' | 'overall_vitals_score' | 'patient_score' | 'env_score'
+>;
+
 export function PatientsTable({
   patients,
   offset,
@@ -49,7 +54,7 @@ export function PatientsTable({
     active: 'patient_score',
     environment: 'env_score',
     precon: 'pre_condition_score'
-  };
+  } as const;
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -70,10 +75,17 @@ export function PatientsTable({
   };
 
   const sortedPatients = [...patients].sort((a, b) => {
-    let fieldToSort =
+    const fieldToSort =
       activeTabLookup[activeTab as keyof typeof activeTabLookup];
-    const aScore = a[fieldToSort as keyof Patient][currentIndex];
-    const bScore = b[fieldToSort as keyof Patient][currentIndex];
+
+    // Handle pre_condition_score separately as it's not an array
+    if (fieldToSort === 'pre_condition_score') {
+      return b.pre_condition_score - a.pre_condition_score;
+    }
+
+    // Now TypeScript knows these are array fields
+    const aScore = a[fieldToSort as ScoreField][currentIndex];
+    const bScore = b[fieldToSort as ScoreField][currentIndex];
     return bScore - aScore;
   });
 
