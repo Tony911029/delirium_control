@@ -26,7 +26,7 @@ export default async function ProductsPage(
     <Tabs defaultValue="all">
       <div className="flex items-center">
         <TabsList>
-          <TabsTrigger value="all">Overall Score</TabsTrigger>
+          <TabsTrigger value="all">Overall Risk Score</TabsTrigger>
           <TabsTrigger value="vitals">Vitals Score</TabsTrigger>
           <TabsTrigger value="active">Patient Score</TabsTrigger>
           <TabsTrigger value="environment">Environment Score</TabsTrigger>

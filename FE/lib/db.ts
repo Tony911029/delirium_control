@@ -283,7 +283,7 @@ export const getPatients = (): Patient[] => [
     physician_name: 'Dr. John Doe',
     nurse_name: 'Nurse Jane Doe',
     is_included: true,
-    patient_status: 'Active Monitoring',
+    patient_status: 'Program Exclusion',
     vitals: {
       temperature: [
         37.0, 36.9, 36.8, 37.2, 37.1, 37.3, 37.5, 37.7, 37.8, 37.6, 37.4, 37.2,
@@ -456,7 +456,7 @@ export const getPatients = (): Patient[] => [
     physician_name: 'Dr. John Doe',
     nurse_name: 'Nurse Jane Doe',
     is_included: true,
-    patient_status: 'Active Monitoring',
+    patient_status: 'Discharged - No Delirium',
     vitals: {
       temperature: [
         36.8, 37.0, 37.2, 37.4, 37.6, 37.9, 38.2, 38.4, 38.5, 38.3, 38.1, 37.8,
@@ -798,7 +798,7 @@ export const getPatients = (): Patient[] => [
     physician_name: 'Dr. Lisa Park',
     nurse_name: 'Nurse David Miller',
     is_included: true,
-    patient_status: 'Active Monitoring',
+    patient_status: 'Discharged - No Delirium',
     vitals: {
       temperature: [
         36.5, 36.6, 36.8, 37.1, 37.4, 37.8, 38.2, 38.6, 38.9, 38.7, 38.4, 38.1,
@@ -958,7 +958,7 @@ export const getPatients = (): Patient[] => [
     physician_name: 'Dr. Alex Wong',
     nurse_name: 'Nurse Sarah Miller',
     is_included: true,
-    patient_status: 'Active Monitoring',
+    patient_status: 'Discharged - Delirium Incident',
     vitals: {
       temperature: Array(20).fill(36.8),
       pulse_rate: Array(20).fill(72),
@@ -1085,7 +1085,7 @@ export const getPatients = (): Patient[] => [
     physician_name: 'Dr. Rachel Green',
     nurse_name: 'Nurse Jack Thompson',
     is_included: true,
-    patient_status: 'Active Monitoring',
+    patient_status: 'Program Exclusion',
     vitals: {
       temperature: [
         38.5, 38.8, 39.2, 39.5, 39.8, 40.1, 40.2, 40.2, 40.1, 40.0, 39.9, 39.8,
@@ -1357,7 +1357,7 @@ export const getPatients = (): Patient[] => [
     physician_name: 'Dr. Patricia Lee',
     nurse_name: 'Nurse Tom Anderson',
     is_included: true,
-    patient_status: 'Active Monitoring',
+    patient_status: 'Discharged - Delirium Incident',
     vitals: {
       temperature: [
         36.8, 37.2, 38.5, 39.2, 39.8, 38.9, 37.8, 37.2, 38.4, 39.1, 39.5, 38.6,
@@ -1534,7 +1534,7 @@ export const getPatients = (): Patient[] => [
     physician_name: 'Dr. James Wilson',
     nurse_name: 'Nurse Faith Martinez',
     is_included: true,
-    patient_status: 'Active Monitoring',
+    patient_status: 'Discharged - No Delirium',
     vitals: {
       temperature: [
         36.5, 38.2, 37.0, 39.5, 37.2, 38.8, 37.4, 39.2, 37.6, 38.5, 37.8, 39.0,

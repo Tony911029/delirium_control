@@ -139,7 +139,7 @@ export function PatientsTable({
                     <b>Predisposition Score</b>
                   </TableHead>
                   <TableHead className="hidden md:table-cell text-black">
-                    <b>Overall Score</b>
+                    <b>Overall Risk Score</b>
                   </TableHead>
                 </>
               )}

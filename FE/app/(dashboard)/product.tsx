@@ -3,7 +3,7 @@ import { TableCell, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
-import { Patient } from '@/lib/db';
+import { Patient, PatientStatus } from '@/lib/db';
 import { useRouter } from 'next/navigation';
 import { format } from 'date-fns';
 
@@ -17,6 +17,23 @@ export function PatientRow({
   currentIndex: number;
 }) {
   const router = useRouter();
+  const patient_status = patient.patient_status;
+  const statusColors: Record<PatientStatus, string> = {
+    'Discharged - No Delirium': 'bg-blue-200 text-blue-800',
+    'Discharged - Delirium Incident': 'bg-orange-200 text-orange-800',
+    'Program Exclusion': 'bg-gray-300 text-gray-700',
+    'Active Monitoring': 'bg-purple-200 text-purple-800'
+  };
+
+  const [selectedStatus, setSelectedStatus] =
+    useState<PatientStatus>(patient_status);
+  const statuses: PatientStatus[] = Object.keys(
+    statusColors
+  ) as PatientStatus[];
+  const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newStatus = event.target.value as PatientStatus;
+    setSelectedStatus(newStatus);
+  };
 
   return (
     <TableRow
@@ -152,7 +169,26 @@ export function PatientRow({
       )}
 
       <TableCell className="hidden sm:table-cell">
-        {patient.patient_status}
+        <div className="w-[120px]">
+          <select
+            value={selectedStatus}
+            onChange={(event) => {
+              event.stopPropagation();
+              handleStatusChange(event);
+            }}
+            className={`px-2 py-1 w-full rounded-lg text-xs font-medium border-0 focus:outline-none truncate ${statusColors[selectedStatus]}`}
+          >
+            {statuses.map((status) => (
+              <option
+                key={status}
+                value={status}
+                className="text-black whitespace-normal"
+              >
+                {status}
+              </option>
+            ))}
+          </select>
+        </div>
       </TableCell>
     </TableRow>
   );
