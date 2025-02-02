@@ -107,7 +107,7 @@ export default function Vitals({ patient }: { patient: Patient }) {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="h-64">
+          {/* <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart
                 data={createChartData(overall_vitals_score)}
@@ -132,7 +132,7 @@ export default function Vitals({ patient }: { patient: Patient }) {
                 />
               </LineChart>
             </ResponsiveContainer>
-          </div>
+          </div> */}
 
           <div className="grid grid-cols-2 gap-4">
             {Object.entries(vitals).map(([key, values]) => {
