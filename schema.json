@@ -1,0 +1,101 @@
+{
+    "environmental_data": {
+        "surrounding_lighting": {
+            "value": 0,
+            "unit": "lux"
+        },
+        "surrounding_sound": {
+            "value": 0,
+            "unit": "dB"
+        },
+        "time_in_hallway": {
+            "value": 0,
+            "unit": "s"
+        }
+    },
+    "real_time_data": {
+        "temperature": {
+            "value": 0,
+            "unit": "°C"
+        },
+        "pulse_rate": {
+            "value": 0,
+            "unit": "bpm"
+        },
+        "bgl": {
+            "value": 0,
+            "unit": "mmol/L"
+        },
+        "daily_body_weight": {
+            "value": 0,
+            "unit": "kg"
+        },
+        "hydration": {
+            "value": 0,
+            "unit": "%"
+        },
+        "blood_pressure": {
+            "systolic": {
+                "value": 0,
+                "unit": "mmHg"
+            },
+            "diastolic": {
+                "value": 0,
+                "unit": "mmHg"
+            }
+        },
+        "respiration_rate": {
+            "value": 0,
+            "unit": "bpm"
+        }
+    },
+    "predisposed_data": {
+        "age": {
+            "value": 0, 
+            "unit": "years"
+        },
+        "drug_and_alcohol_withdrawal": {
+            "value": 0, 
+            "unit": "days"
+        },
+        "sleep_deprivation": {
+            "value": 0, 
+            "unit": "hours"
+        },
+        "infections": {
+            "value": 0, 
+            "unit": "type"
+        }, 
+        "fever": {
+            "value": 0, 
+            "unit": "°C"
+        },
+        "dehydration": {
+            "value": 0, 
+            "unit": "level"
+        }, 
+        "recent_mobility_change": {"value": 0, "unit": "days"},
+        "hip_fracture_or_other_injury": {"value": False, "unit": "boolean"},
+        "recent_cognitive_stimulation": {"value": 0, "unit": "days"},  # Days since cognitive engagement
+        "stroke_history": {"value": False, "unit": "boolean"},
+        "dementia_or_cognitive_impairment": {"value": False, "unit": "boolean"},
+        "pain_level": {"value": 0, "unit": "/10"}, 
+        "narcotics_or_anesthesia": {"value": False, "unit": "boolean"},
+        "temperature": {"value": 0, "unit": "°C"},
+        "real_time_sensors_for_monitoring": {"value": False, "unit": "boolean"},
+        "patient_orientation": {"value": "unknown", "unit": "string"},  # e.g., "oriented", "disoriented"
+        "glasgow_coma_scale": {"value": 15, "unit": "scale"},  # 3-15 scale
+        "threat_alert": {"value": False, "unit": "boolean"},
+        "droplet_contact_precautions": {"value": False, "unit": "boolean"},
+        "social_isolation": {"value": 0, "unit": "days"},  # Days since last social contact
+        "malnutrition": {"value": False, "unit": "boolean"},
+        "functional_dependence": {"value": False, "unit": "boolean"},
+        "polypharmacy": {"value": 0, "unit": "medications"}, 
+        "visual_impairment": {"value": False, "unit": "boolean"},
+        "hearing_impairment": {"value": False, "unit": "boolean"},
+        "urinary_catheter": {"value": False, "unit": "boolean"},
+        "hospitalization_duration": {"value": 0, "unit": "days"},  # Length of stay in hospital
+        "multiple_room_changes": {"value": False, "unit": "boolean"}
+    }
+}
+
