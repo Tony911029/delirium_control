@@ -8,7 +8,9 @@ import {
   Tooltip,
   CartesianGrid,
   ResponsiveContainer,
-  Label  // add this import
+  Label,  // add this import
+  Area,
+  ReferenceArea // add this import
 } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Patient } from '@/lib/db';
@@ -100,7 +102,7 @@ export default function EnvironmentalFactors({
             <CardContent>
               <h2 className="text-md my-2">Lighting Level</h2>
               <p className="text-4xl font-semibold">
-                {currentData.lighting} lm
+                {currentData.lighting}
               </p>
             </CardContent>
           </Card>
@@ -145,12 +147,13 @@ export default function EnvironmentalFactors({
                   />
                   <YAxis>
                     <Label 
-                      value="Lumens" 
+                      value="Light Index" 
                       angle={-90} 
                       position="insideLeft" 
                       offset={15}
                       style={{ textAnchor: 'middle', dominantBaseline: 'middle' }} 
                     />
+                    
                   </YAxis>
                   <Tooltip />
                   <CartesianGrid strokeDasharray="3 3" />
@@ -195,6 +198,15 @@ export default function EnvironmentalFactors({
                       stroke="#82ca9d"
                       strokeWidth={2}
                       dot={false}
+                    />
+                    {/* Updated: Highlight noise levels between 30 and 45 */}
+                    <ReferenceArea
+                      x1="dataMin"
+                      x2="dataMax"
+                      y1="dataMin"
+                      y2="dataMax"
+                      fill="#8884d8"
+                      fillOpacity={0.5}
                     />
                 </LineChart>
               </ResponsiveContainer>
