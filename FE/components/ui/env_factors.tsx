@@ -25,7 +25,7 @@ export default function EnvironmentalFactors({ patient }: { patient: Patient; })
     time: formatTime(startTime + i * intervalMs),
     lighting: patient.env_score_fields.lighting_levels[i],
     noise: patient.env_score_fields.noise_levels[i],
-    hallway: patient.env_score_fields.time_in_hallway[i],
+    hallway: Math.round(patient.env_score_fields.time_in_hallway[i]/60),
     roomChange: patient.env_score_fields.room_change_frequency[i],
     patients: patient.env_score_fields.number_of_patients_in_room[i]
   });
@@ -62,19 +62,19 @@ export default function EnvironmentalFactors({ patient }: { patient: Patient; })
           <Card>
             <CardContent>
               <h2 className="text-md my-2">Lighting Level</h2>
-              <p className="text-4xl font-semibold">{currentData.lighting}</p>
+              <p className="text-4xl font-semibold">{currentData.lighting} lm</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent>
               <h2 className="text-md my-2">Noise Level</h2>
-              <p className="text-4xl font-semibold">{currentData.noise}</p>
+              <p className="text-4xl font-semibold">{currentData.noise} db</p>
             </CardContent>
           </Card>
           <Card>
             <CardContent>
               <h2 className="text-md my-2">Time in Hallway</h2>
-              <p className="text-4xl font-semibold">{currentData.hallway}</p>
+              <p className="text-4xl font-semibold">{currentData.hallway} hr</p>
             </CardContent>
           </Card>
           <Card>
