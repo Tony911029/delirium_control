@@ -51,6 +51,12 @@ export default function EnvironmentalFactors({ patient }: { patient: Patient; })
     });
   }, [index]);
 
+  function getBgClass(value: number, low: number, high: number) {
+    if (value < low) return "bg-green-400 bg-opacity-10";    // below range
+    else if (value > high) return "bg-red-400 bg-opacity-10"; // above range
+    else return "bg-yellow-400 bg-opacity-10";                // within range
+  }
+
   return (
     <Card>
       <CardHeader>
@@ -62,31 +68,31 @@ export default function EnvironmentalFactors({ patient }: { patient: Patient; })
       <CardContent>
         <div className="grid grid-cols-2 gap-4 p-4">
           {/* Display current values */}
-          <Card>
+          <Card className={getBgClass(currentData.lighting, 2, 4)}>
             <CardContent>
               <h2 className="text-md my-2">Lighting Level</h2>
               <p className="text-4xl font-semibold">{currentData.lighting} lm</p>
             </CardContent>
           </Card>
-          <Card>
+          <Card className={getBgClass(currentData.noise, 2, 4)}>
             <CardContent>
               <h2 className="text-md my-2">Noise Level</h2>
               <p className="text-4xl font-semibold">{currentData.noise} db</p>
             </CardContent>
           </Card>
-          <Card>
+          <Card className={getBgClass(currentData.hallway, 1, 2)}>
             <CardContent>
               <h2 className="text-md my-2">Time in Hallway</h2>
               <p className="text-4xl font-semibold">{currentData.hallway} hr</p>
             </CardContent>
           </Card>
-          <Card>
+          <Card className={getBgClass(currentData.roomChange, 1, 2)}>
             <CardContent>
               <h2 className="text-md my-2">Room Change Frequency</h2>
               <p className="text-4xl font-semibold">{currentData.roomChange}</p>
             </CardContent>
           </Card>
-          <Card>
+          <Card className={getBgClass(currentData.patients, 1, 3)}>
             <CardContent>
               <h2 className="text-md my-2">Patients in Room</h2>
               <p className="text-4xl font-semibold">{currentData.patients}</p>
