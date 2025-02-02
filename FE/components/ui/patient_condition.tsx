@@ -93,6 +93,20 @@ export default function PatientCondition({ patient }: { patient: Patient }) {
             </CardContent>
           </Card>
 
+          <Card className={`bg-opacity-10 ${ currentData.time_since_last_cam_test > 720 ? 'bg-red-400' : currentData.time_since_last_cam_test > 360 ? 'bg-yellow-400' : 'bg-green-400 '}`}>
+            <CardContent>
+              <h2 className="text-md my-2">Time Since Last CAM</h2>
+              <p className="text-3xl font-bold">{currentData.time_since_last_cam_test} min</p>
+            </CardContent>
+          </Card>
+
+          <Card className={`bg-opacity-10 ${ currentData.sleep_deprivation ? 'bg-red-400' : 'bg-green-400 '}`}>
+            <CardContent>
+              <h2 className="text-md my-2">Sleep Deprivation</h2>
+              <p className="text-3xl font-bold">{currentData.sleep_deprivation ? "Yes" : "No"}</p>
+            </CardContent>
+          </Card>
+
           <Card className={`bg-opacity-10 ${ currentData.body_weight_change < -2 ? 'bg-red-400' : currentData.body_weight_change < 0 ? 'bg-yellow-400' : 'bg-green-400 '}`}>
             <CardContent>
               <h2 className="text-md my-2">Body Weight Change</h2>
