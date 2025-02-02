@@ -6,6 +6,7 @@ import { Info } from 'lucide-react';
 import { Patient } from '@/lib/db';
 
 export default function PredispositionWidget({ patient }: { patient: Patient }) {
+  const overall_predisposition_score = patient.pre_condition_score;
   const enrichedNotes = Object.entries(patient.enriched_notes)
     .sort(([a], [b]) => a.localeCompare(b)) // Sort alphabetically
     .map(([key, value]) => {
@@ -24,7 +25,10 @@ export default function PredispositionWidget({ patient }: { patient: Patient }) 
   return (
     <Card className="col-span-2">
       <CardHeader>
-        <CardTitle>Predisposition Factors</CardTitle>
+        <CardTitle className='flex justify-between'>
+          <span>Predisposition Factors</span>
+          <span className={`p-2 w-11 h-11 text-center rounded-full ${overall_predisposition_score < 4 ? "bg-green-200" : overall_predisposition_score < 8 ? "bg-yellow-200" : "bg-red-200"}`}>{overall_predisposition_score}</span>
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-3 gap-4 p-4">

@@ -1,4 +1,4 @@
-interface PatientNotes {
+export interface PatientNotes {
   paramedic: string;
   nurse: string;
   physician: string;
