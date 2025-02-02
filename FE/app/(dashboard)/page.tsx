@@ -17,7 +17,7 @@ export default async function ProductsPage(
   //   search,
   //   Number(offset)
   // );
-  const patients = await getPatients();
+  const patients = getPatients();
   const newOffset = 0;
   const totalPatients = patients.length;
 
@@ -26,10 +26,11 @@ export default async function ProductsPage(
       <div className="flex items-center">
         <TabsList>
           <TabsTrigger value="all">Overall Score</TabsTrigger>
+          <TabsTrigger value="vitals">Vitals Score</TabsTrigger>
           <TabsTrigger value="active">Patient Score</TabsTrigger>
           <TabsTrigger value="environment">Environment Score</TabsTrigger>
           <TabsTrigger value="precon" className="hidden sm:flex">
-            Precondition Score
+            Predisposition Score
           </TabsTrigger>
         </TabsList>
         {/* <div className="ml-auto flex items-center gap-2">
@@ -52,6 +53,14 @@ export default async function ProductsPage(
           patients={patients}
           offset={newOffset ?? 0}
           totalPatients={totalPatients}
+        />
+      </TabsContent>
+      <TabsContent value="vitals">
+        <PatientsTable
+          patients={patients}
+          offset={newOffset ?? 0}
+          totalPatients={totalPatients}
+          activeTab='vitals'
         />
       </TabsContent>
       <TabsContent value="active">
