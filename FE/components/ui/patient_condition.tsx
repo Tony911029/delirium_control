@@ -135,8 +135,8 @@ export default function PatientCondition({ patient }: { patient: Patient }) {
 				<h2 className="text-md my-2">Hours of Sleep</h2>
 				<ResponsiveContainer width="100%" height={250}>
 				<BarChart data={sleepData}>
-					<XAxis dataKey="time" />
-					<YAxis domain={[0, 24]} />
+					<XAxis dataKey="time" label={{ value: 'Time', position: 'insideBottom', offset: -3 }}/>
+					<YAxis domain={[0, 24]} label={{ value: 'hr', angle:-90, position: 'insideLeft', offset: 18 }}/>
 					<Tooltip />
 					<CartesianGrid strokeDasharray="3 3" />
 					<Bar dataKey="hours" fill={sleepData[sleepData.length - 1].hours < 5 ? '#ef4444' : '#4ade80'} />
@@ -151,8 +151,8 @@ export default function PatientCondition({ patient }: { patient: Patient }) {
               <h2 className="text-md my-2">Body Weight Change</h2>
               <ResponsiveContainer width="100%" height={250}>
                 <LineChart data={weightData}>
-                  <XAxis dataKey="time" />
-                  <YAxis domain={[-3, 3]} />
+                  <XAxis dataKey="time" label={{ value: 'Time', position: 'insideBottom', offset: -3 }}/>
+                  <YAxis domain={[-3, 3]} label={{ value: 'kg', angle:-90, position: 'insideLeft', offset: 18 }}/>
                   <Tooltip />
                   <CartesianGrid strokeDasharray="3 3" />
                   <Line 
@@ -173,8 +173,8 @@ export default function PatientCondition({ patient }: { patient: Patient }) {
               <h2 className="text-md my-2">Hydration Levels</h2>
               <ResponsiveContainer width="100%" height={250}>
                 <LineChart data={hydrationData}>
-                  <XAxis dataKey="time" />
-                  <YAxis domain={[-4,4]} />
+                  <XAxis dataKey="time" label={{ value: 'Time', position: 'insideBottom', offset: -3 }} />
+                  <YAxis domain={[-4,4]} label={{ value: 'USG', angle:-90, position: 'insideLeft', offset: 18 }}/>
                   <Tooltip />
                   <CartesianGrid strokeDasharray="3 3" />
                   <Line 

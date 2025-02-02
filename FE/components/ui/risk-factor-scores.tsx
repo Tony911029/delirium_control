@@ -87,8 +87,8 @@ export default function RiskFactorScores({ patient }: { patient: Patient }) {
       <CardContent>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={chartData}>
-            <XAxis dataKey="time" />
-            <YAxis domain={[0, 10]} />
+            <XAxis dataKey="time" label={{ value: 'Time', position: 'insideBottom', offset: -3 }}/>
+            <YAxis domain={[0, 10]} label={{ value: 'score', angle:-90, position: 'insideLeft', offset: 18 }}/>
             <Tooltip />
             <CartesianGrid strokeDasharray="3 3" />
             <Legend />

@@ -98,8 +98,13 @@ export default function EnvironmentalFactors({ patient }: { patient: Patient; })
               <h2 className="text-md my-2">Trend Analysis</h2>
               <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={trendData}>
-                  <XAxis dataKey="time" />
-                  <YAxis />
+                  <XAxis 
+                    dataKey="time" 
+                    label={{ value: 'Time', position: 'insideBottom', offset: -5 }} 
+                  />
+                  <YAxis 
+                    label={{ value: 'Factor Units', angle: -90, position: 'insideLeft', offset: 15 }} 
+                  />
                   <Tooltip />
                   <CartesianGrid strokeDasharray="3 3" />
                   <Line type="monotone" dataKey="lighting" stroke="#8884d8" strokeWidth={2} dot={false} />
