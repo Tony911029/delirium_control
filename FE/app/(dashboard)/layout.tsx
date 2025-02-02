@@ -4,7 +4,7 @@ import Link from 'next/link';
 import {
   Home,
   LineChart,
-  Package,
+  Activity,
   Package2,
   PanelLeft,
   Settings,
@@ -65,7 +65,7 @@ function DesktopNav() {
     <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
       <nav className="flex flex-col items-center gap-4 px-2 sm:py-12">
         <NavItem href="/" label="Patients">
-          <Package className="h-5 w-5" />
+          <Activity className="h-5 w-5" />
         </NavItem>
 
         {/* <NavItem href="/data" label="Data">
@@ -126,7 +126,7 @@ function MobileNav() {
             href="#"
             className="flex items-center gap-4 px-2.5 text-foreground"
           >
-            <Package className="h-5 w-5" />
+            <Activity className="h-5 w-5" />
             Patients
           </Link>
           <Link
