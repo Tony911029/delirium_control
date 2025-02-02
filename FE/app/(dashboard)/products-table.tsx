@@ -45,7 +45,7 @@ export function PatientsTable({
     router.push(`/?offset=${offset}`, { scroll: false });
   }
 
-  const units = ['°C', 'bpm', 'bpm', 'mmHg'];
+  const units = ['°C', 'bpm', 'bpm', 'mmHg', 'mmol/L', 'ms', '%'];
 
   return (
     <Card>
@@ -115,13 +115,13 @@ export function PatientsTable({
                     Blood Pressure ({units[3]})
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
-                    Blood Glucose Level
+                    Blood Glucose Level ({units[4]})
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
-                    Heart Rate Variability
+                    Heart Rate Variability ({units[5]})
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
-                    Blood Oxygen Saturation
+                    Blood Oxygen Saturation ({units[6]})
                   </TableHead>
                 </>
               )}
@@ -131,19 +131,19 @@ export function PatientsTable({
                     <b>Patient Score</b>
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
-                    Time Since Last Visitor
+                    Time Since Last Visitor (s)
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
-                    Time Since Last CAM Test
+                    Time Since Last CAM Test (s)
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
-                    Sleep Deprivation
+                    Sleep Deprivation 
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
-                    Body Weight Change
+                    Body Weight Change (kg)
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
-                    Hydration Levels
+                    Hydration Levels (USG)
                   </TableHead>
                 </>
               )}
@@ -153,13 +153,13 @@ export function PatientsTable({
                     <b>Environment Score</b>
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
-                    Light Level
+                    Light Level (lm)
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
-                    Noise Level
+                    Noise Level (db)
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
-                    Time in Hallway
+                    Time in Hallway (hr)
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
                     Room Change Frequency
