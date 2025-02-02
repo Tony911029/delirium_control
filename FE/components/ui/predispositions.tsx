@@ -33,7 +33,7 @@ export default function PredispositionWidget({ patient }: { patient: Patient }) 
               <CardContent className="flex flex-col">
                 <div className="flex items-center gap-2">
                   <h2 className="text-md my-2 capitalize">{key.replace(/_/g, ' ')}</h2>
-                  <Tooltip>
+                  <Tooltip delayDuration={100}>
                     <TooltipTrigger asChild>
                       <Info className="h-4 w-4 text-gray-600 hover:text-black cursor-pointer" />
                     </TooltipTrigger>
