@@ -107,33 +107,6 @@ export default function Vitals({ patient }: { patient: Patient }) {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart
-                data={createChartData(overall_vitals_score)}
-                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="time"
-                  // tick={{ fontSize: 12 }}
-                  // angle={-45}
-                  textAnchor="end"
-                  height={60}
-                />
-                <YAxis domain={[0, 10]} />
-                <Tooltip />
-                <Line
-                  type="monotone"
-                  dataKey="value"
-                  stroke="#8884d8"
-                  strokeWidth={2}
-                  dot={false}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-
           <div className="grid grid-cols-2 gap-4">
             {Object.entries(vitals).map(([key, values]) => {
               const config = vitalConfigs[key as keyof typeof vitalConfigs];

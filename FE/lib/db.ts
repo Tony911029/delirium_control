@@ -74,8 +74,8 @@ export type Patient = {
 export const getEmployees = (): Employee[] => [
   {
     id: '1',
-    first_name: 'Linda',
-    last_name: 'Kowalski',
+    first_name: 'Faith',
+    last_name: 'Martinez',
     age: 32,
     gender: "Female",
     time_started: '2024-02-01T02:00:00',
@@ -139,10 +139,10 @@ export const getPatients = (): Patient[] => [
     patient_score_fields: {
       time_since_last_visitor: [
         30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110,
-        115, 120, 125
+        115, 120, 30
       ],
       time_since_last_cam_test: [
-        120, 125, 130, 135, 145, 150, 155, 160, 165, 170, 175, 180, 185, 190,
+        5, 125, 130, 135, 145, 150, 155, 160, 165, 170, 175, 180, 185, 190,
         195, 200, 205, 210, 215, 220
       ],
       sleep_deprivation: Array(20).fill(4.6),
@@ -1363,7 +1363,7 @@ export const getPatients = (): Patient[] => [
 	gender: "Female",
 	admitted_at: "2024-02-01T10:00:00",
 	physician_name: "Dr. James Wilson",
-	nurse_name: "Nurse Linda Martinez",
+	nurse_name: "Nurse Faith Martinez",
 	is_included: true,
 	vitals: {
 		temperature: [36.5, 38.2, 37.0, 39.5, 37.2, 38.8, 37.4, 39.2, 37.6, 38.5, 37.8, 39.0, 37.0, 38.4, 37.2, 38.6, 37.4, 38.8, 37.6, 39.0],
