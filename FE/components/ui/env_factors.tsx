@@ -27,7 +27,8 @@ export default function EnvironmentalFactors({ patient }: { patient: Patient; })
     noise: patient.env_score_fields.noise_levels[i],
     hallway: Math.round(patient.env_score_fields.time_in_hallway[i]/60),
     roomChange: patient.env_score_fields.room_change_frequency[i],
-    patients: patient.env_score_fields.number_of_patients_in_room[i]
+    patients: patient.env_score_fields.number_of_patients_in_room[i],
+    env_score: patient.env_score[i]  // new line
   });
 
   const initialTrendData = Array.from({ length: dataLength }, (_, i) => createTrendDataPoint(i)).slice(-maxPoints);
@@ -54,6 +55,12 @@ export default function EnvironmentalFactors({ patient }: { patient: Patient; })
   function getBgClass(value: number, low: number, high: number) {
     if (value < low) return "bg-green-400 bg-opacity-10";    // below range
     else if (value > high) return "bg-red-400 bg-opacity-10"; // above range
+    else return "bg-yellow-400 bg-opacity-10";                // within range
+  }
+
+  function oppgetBgClass(value: number, low: number, high: number) {
+    if (value > high) return "bg-green-400 bg-opacity-10";    // below range
+    else if (value < low) return "bg-red-400 bg-opacity-10"; // above range
     else return "bg-yellow-400 bg-opacity-10";                // within range
   }
 
@@ -98,6 +105,12 @@ export default function EnvironmentalFactors({ patient }: { patient: Patient; })
               <p className="text-4xl font-semibold">{currentData.patients}</p>
             </CardContent>
           </Card>
+          <Card className={oppgetBgClass(currentData.env_score, 5, 7)}>
+            <CardContent>
+              <h2 className="text-md my-2">Environment Score</h2>
+              <p className="text-4xl font-semibold">{currentData.env_score}</p>
+            </CardContent>
+          </Card>
           {/* Trend Analysis Chart */}
           <Card className="col-span-2">
             <CardContent>
@@ -118,6 +131,7 @@ export default function EnvironmentalFactors({ patient }: { patient: Patient; })
                   <Line type="monotone" dataKey="hallway" stroke="#ffc658" strokeWidth={2} dot={false} />
                   <Line type="monotone" dataKey="roomChange" name="Room change" stroke="#ff7300" strokeWidth={2} dot={false} />
                   <Line type="monotone" dataKey="patients" stroke="#413ea0" strokeWidth={2} dot={false} />
+                  <Line type="monotone" dataKey="env_score" name="Environment Score" stroke="#00aaff" strokeWidth={2} dot={false} />  // new line
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>
