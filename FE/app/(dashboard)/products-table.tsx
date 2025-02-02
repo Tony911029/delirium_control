@@ -174,10 +174,10 @@ export function PatientsTable({
                     <b>Patient Score</b>
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
-                    Time Since Last Visitor (hr)
+                    Time Last Visitor (hr)
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
-                    Time Since Last CAM Test (hr)
+                    Last CAM Test (hr)
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
                     Sleep Time (hr)
@@ -186,7 +186,7 @@ export function PatientsTable({
                     Body Weight Change (kg)
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
-                    Hydration Levels (USG)
+                    Hydration Levels (mL)
                   </TableHead>
                 </>
               )}
