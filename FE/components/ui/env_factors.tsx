@@ -201,12 +201,12 @@ export default function EnvironmentalFactors({
                     />
                     {/* Updated: Highlight noise levels between 30 and 45 */}
                     <ReferenceArea
-                      x1="dataMin"
-                      x2="dataMax"
-                      y1="dataMin"
-                      y2="dataMax"
+                      x1={0}
+                      x2={100}
+                      y1={0}
+                      y2={100}
                       fill="#8884d8"
-                      fillOpacity={0.5}
+                      fillOpacity={1}
                     />
                 </LineChart>
               </ResponsiveContainer>

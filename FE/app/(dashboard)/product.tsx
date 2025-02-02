@@ -168,7 +168,10 @@ export function PatientRow({
         </>
       )}
 
-      <TableCell className="hidden sm:table-cell">
+      <TableCell
+        className="hidden sm:table-cell"
+        onClick={(event) => event.stopPropagation()} // added to exclude this cell from row click logic
+      >
         <div className="w-[120px]">
           <select
             value={selectedStatus}
@@ -179,11 +182,7 @@ export function PatientRow({
             className={`px-2 py-1 w-full rounded-lg text-xs font-medium border-0 focus:outline-none truncate ${statusColors[selectedStatus]}`}
           >
             {statuses.map((status) => (
-              <option
-                key={status}
-                value={status}
-                className="text-black whitespace-normal"
-              >
+              <option key={status} value={status} className="text-black whitespace-normal">
                 {status}
               </option>
             ))}
