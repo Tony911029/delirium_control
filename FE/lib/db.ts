@@ -1233,7 +1233,7 @@ export const getPatients = (): Patient[] => [
 	id: "9",	
 	first_name: "Liam",
 	last_name: "Murphy",
-	age: 78,
+	age: 99,
 	gender: "Male",
 	admitted_at: "2024-02-01T09:00:00",
 	physician_name: "Dr. Patricia Lee",

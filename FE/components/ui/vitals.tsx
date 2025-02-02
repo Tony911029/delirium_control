@@ -122,15 +122,18 @@ export default function Vitals({ patient }: { patient: Patient }) {
             {Object.entries(vitals).map(([key, values]) => {
               const config = vitalConfigs[key as keyof typeof vitalConfigs];
               return (
-                <details key={key} className="w-full">
-                  <summary className="cursor-pointer">
-                    <Card className="w-full">
-                      <CardHeader>
+                <details key={key} className="w-full [&_summary::-webkit-details-marker]:hidden">
+                  <summary className="cursor-pointer list-none">
+                    <Card className="w-full hover:bg-gray-50 transition-colors">
+                      <CardHeader className="flex flex-row items-center justify-between">
                         <CardTitle>
                           {config.name} -{' '}
                           {createChartData(values)[WINDOW_SIZE - 1].value}{' '}
                           {config.unit}
                         </CardTitle>
+                        <div className="h-4 w-4 transition-transform duration-200 [details[open]>&]:rotate-180">
+                          ▼
+                        </div>
                       </CardHeader>
                     </Card>
                   </summary>
