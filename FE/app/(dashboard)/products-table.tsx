@@ -131,10 +131,10 @@ export function PatientsTable({
                     <b>Patient Score</b>
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
-                    Time Since Last Visitor (s)
+                    Time Since Last Visitor (hr)
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
-                    Time Since Last CAM Test (s)
+                    Time Since Last CAM Test (hr)
                   </TableHead>
                   <TableHead className="hidden md:table-cell">
                     Sleep Deprivation 

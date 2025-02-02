@@ -102,7 +102,7 @@ export default function EnvironmentalFactors({ patient }: { patient: Patient; })
                   <Line type="monotone" dataKey="lighting" stroke="#8884d8" strokeWidth={2} dot={false} />
                   <Line type="monotone" dataKey="noise" stroke="#82ca9d" strokeWidth={2} dot={false} />
                   <Line type="monotone" dataKey="hallway" stroke="#ffc658" strokeWidth={2} dot={false} />
-                  <Line type="monotone" dataKey="roomChange" stroke="#ff7300" strokeWidth={2} dot={false} />
+                  <Line type="monotone" dataKey="roomChange" name="Room change" stroke="#ff7300" strokeWidth={2} dot={false} />
                   <Line type="monotone" dataKey="patients" stroke="#413ea0" strokeWidth={2} dot={false} />
                 </LineChart>
               </ResponsiveContainer>
