@@ -30,12 +30,17 @@ export default function Vitals({ patient }: { patient: Patient }) {
   const createChartData = (values: number[]) => {
     const startIndex = currentTimestep - 1;
     const dataPoints = [];
+    const startTime = Date.now(); // Get current time as base
 
     for (let i = 0; i < WINDOW_SIZE; i++) {
       const index = (startIndex + i) % values.length;
       const actualIndex = index >= 0 ? index : index + values.length;
       dataPoints.push({
-        timestep: i + 1,
+        time: new Date(startTime + i * 5000).toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        }),
         value: Number(values[actualIndex].toFixed(1))
       });
     }
@@ -92,12 +97,43 @@ export default function Vitals({ patient }: { patient: Patient }) {
     <div className="space-y-4 col-span-2">
       <Card className="w-full">
         <CardHeader>
-		<CardTitle className='flex justify-between'>
-          <span>Patient Vitals</span>
-          <span className={`p-2 w-11 h-11 text-center rounded-full ${overall_vitals_score[overall_vitals_score.length - 1] < 4 ? "bg-green-200" : overall_vitals_score[overall_vitals_score.length - 1] < 8 ? "bg-yellow-200" : "bg-red-200"}`}>{overall_vitals_score[overall_vitals_score.length - 1]}</span>
-        </CardTitle>
+          <CardTitle className="flex justify-between">
+            <span>Patient Vitals</span>
+            <span
+              className={`p-2 w-11 h-11 text-center rounded-full ${overall_vitals_score[overall_vitals_score.length - 1] < 4 ? 'bg-green-200' : overall_vitals_score[overall_vitals_score.length - 1] < 8 ? 'bg-yellow-200' : 'bg-red-200'}`}
+            >
+              {overall_vitals_score[overall_vitals_score.length - 1]}
+            </span>
+          </CardTitle>
         </CardHeader>
         <CardContent>
+          <div className="h-64">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart
+                data={createChartData(overall_vitals_score)}
+                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="time"
+                  // tick={{ fontSize: 12 }}
+                  // angle={-45}
+                  textAnchor="end"
+                  height={60}
+                />
+                <YAxis domain={[0, 10]} />
+                <Tooltip />
+                <Line
+                  type="monotone"
+                  dataKey="value"
+                  stroke="#8884d8"
+                  strokeWidth={2}
+                  dot={false}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+
           <div className="grid grid-cols-2 gap-4">
             {Object.entries(vitals).map(([key, values]) => {
               const config = vitalConfigs[key as keyof typeof vitalConfigs];
@@ -106,9 +142,11 @@ export default function Vitals({ patient }: { patient: Patient }) {
                   <summary className="cursor-pointer list-none">
                     <Card className="w-full hover:bg-gray-50 transition-colors">
                       <CardHeader className="flex flex-row items-center justify-between text-lg font-medium">
+                        <div>
                           {config.name} -{' '}
                           {createChartData(values)[WINDOW_SIZE - 1].value}{' '}
                           {config.unit}
+                        </div>
                         <div className="h-4 w-4 transition-transform duration-200 [details[open]>&]:rotate-180">
                           ▼
                         </div>
@@ -124,7 +162,13 @@ export default function Vitals({ patient }: { patient: Patient }) {
                             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                           >
                             <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="timestep" />
+                            <XAxis 
+                              dataKey="time"
+                              tick={{ fontSize: 12 }}
+                              angle={-45}
+                              textAnchor="end"
+                              height={60}
+                            />
                             <YAxis domain={config.domain} />
                             <Tooltip />
                             <Line
