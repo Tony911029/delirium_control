@@ -67,13 +67,13 @@ export default function PatientCondition({ patient }: { patient: Patient }) {
   }, [index]);
 
   return (
-    <Card className='bg-blue-400 bg-opacity-10 col-span-2'>
+    <Card>
       <CardHeader>
         <CardTitle>Patient Condition</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-2 gap-4 p-4">
-          <Card>
+          <Card className={`bg-opacity-10 ${ currentData.patient_score > 7 ? 'bg-red-400' : currentData.patient_score > 3 ? 'bg-yellow-400' : 'bg-green-400 '}`}>
             <CardContent>
               <h2 className="text-md my-2">Patient Score</h2>
               <p className="text-4xl font-semibold">
@@ -82,34 +82,48 @@ export default function PatientCondition({ patient }: { patient: Patient }) {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className={`bg-opacity-10 ${ currentData.time_since_last_visitor > 120 ? 'bg-red-400' : currentData.time_since_last_visitor > 60 ? 'bg-yellow-400' : 'bg-green-400 '}`}>
             <CardContent>
               <h2 className="text-md my-2">
                 Time Since Last Visitor
               </h2>
-              <p className="text-3xl">
+              <p className="text-3xl font-bold">
                 {currentData.time_since_last_visitor} min
               </p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className={`bg-opacity-10 ${ currentData.time_since_last_cam_test > 720 ? 'bg-red-400' : currentData.time_since_last_cam_test > 360 ? 'bg-yellow-400' : 'bg-green-400 '}`}>
             <CardContent>
-              <h2 className="text-md my-2">Body Weight Change</h2>
-              <p className="text-3xl">{currentData.body_weight_change} kg</p>
+              <h2 className="text-md my-2">Time Since Last CAM</h2>
+              <p className="text-3xl font-bold">{currentData.time_since_last_cam_test} min</p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className={`bg-opacity-10 ${ currentData.sleep_deprivation ? 'bg-red-400' : 'bg-green-400 '}`}>
+            <CardContent>
+              <h2 className="text-md my-2">Sleep Deprivation</h2>
+              <p className="text-3xl font-bold">{currentData.sleep_deprivation ? "Yes" : "No"}</p>
+            </CardContent>
+          </Card>
+
+          <Card className={`bg-opacity-10 ${ currentData.body_weight_change < -2 ? 'bg-red-400' : currentData.body_weight_change < 0 ? 'bg-yellow-400' : 'bg-green-400 '}`}>
+            <CardContent>
+              <h2 className="text-md my-2">Body Weight Change</h2>
+              <p className="text-3xl font-bold">{currentData.body_weight_change} kg</p>
+            </CardContent>
+          </Card>
+
+          <Card className={`bg-opacity-10 ${ currentData.hydration_levels > 120 ? 'bg-red-400' : currentData.hydration_levels > 60 ? 'bg-yellow-400' : 'bg-green-400 '}`}>
             <CardContent>
               <h2 className="text-md my-2">Hydration Levels</h2>
-              <p className="text-3xl">{currentData.hydration_levels} L</p>
+              <p className="text-3xl font-bold">{currentData.hydration_levels} L</p>
             </CardContent>
           </Card>
 
           <Card className="col-span-2">
             <CardContent>
-              <h2 className="text-md my-2">Trend Analysis</h2>
+              <h2 className="text-md my-2">Patient Score Analysis</h2>
               <ResponsiveContainer width="100%" height={300}>
                 <LineChart data={trendData}>
                   <XAxis dataKey="time" />

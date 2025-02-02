@@ -34,7 +34,7 @@ export default async function ProductsPage(
           <TabsTrigger value="active">Patient Score</TabsTrigger>
           <TabsTrigger value="environment">Environment Score</TabsTrigger>
           <TabsTrigger value="precon" className="hidden sm:flex">
-            Precondition Score
+            Predisposition Score
           </TabsTrigger>
         </TabsList>
         {/* <div className="ml-auto flex items-center gap-2">
