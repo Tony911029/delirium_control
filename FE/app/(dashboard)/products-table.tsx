@@ -18,7 +18,13 @@ import {
 import { PatientRow } from './product';
 import { Patient } from '@/lib/db';
 import { useRouter } from 'next/navigation';
-import { ChevronLeft, ChevronRight, ArrowUpDown, Pause, Play } from 'lucide-react';
+import {
+  ChevronLeft,
+  ChevronRight,
+  ArrowUpDown,
+  Pause,
+  Play
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { log } from 'console';
@@ -37,12 +43,10 @@ export function PatientsTable({
   let router = useRouter();
   let productsPerPage = 5;
 
-  // Add currentIndex state
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const maxTimesteps = patients[0]?.overall_score.length || 0;
 
-  // Add useEffect for cycling through timesteps
   useEffect(() => {
     if (isPaused) return;
 
@@ -54,14 +58,13 @@ export function PatientsTable({
   }, [maxTimesteps, isPaused]);
 
   const togglePause = () => {
-    setIsPaused(prev => !prev);
+    setIsPaused((prev) => !prev);
   };
 
-  // Sort patients based on the current timestep
   const sortedPatients = [...patients].sort((a, b) => {
     const aScore = a.overall_score[currentIndex];
     const bScore = b.overall_score[currentIndex];
-    return bScore - aScore; // Always descending
+    return bScore - aScore;
   });
 
   function prevPage() {
@@ -217,8 +220,8 @@ export function PatientsTable({
                   <b>Predisposition Score</b>
                 </TableHead>
               )}
-              <TableHead>
-                <span className="sr-only">Actions</span>
+              <TableHead className="text-black">
+                <b>Status</b>
               </TableHead>
             </TableRow>
           </TableHeader>
