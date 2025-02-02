@@ -168,28 +168,8 @@ export default function EnvironmentalFactors({
                     strokeWidth={2}
                     dot={false}
                   />
-                  <Line
-                    type="monotone"
-                    dataKey="hallway"
-                    stroke="#ffc658"
-                    strokeWidth={2}
-                    dot={false}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="roomChange"
-                    name="Room change"
-                    stroke="#ff7300"
-                    strokeWidth={2}
-                    dot={false}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="patients"
-                    stroke="#413ea0"
-                    strokeWidth={2}
-                    dot={false}
-                  />
+
+
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>
