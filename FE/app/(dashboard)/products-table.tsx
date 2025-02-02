@@ -76,7 +76,7 @@ export function PatientsTable({
                   <TableHead className="hidden md:table-cell text-black"><b>Overall Vitals Score</b></TableHead>
                   <TableHead className="hidden md:table-cell text-black"><b>Patient Score</b></TableHead>
                   <TableHead className="hidden md:table-cell text-black"><b>Environment Score</b></TableHead>
-                  <TableHead className="hidden md:table-cell text-black"><b>Pre-Condition Score</b></TableHead>
+                  <TableHead className="hidden md:table-cell text-black"><b>Predisposition Score</b></TableHead>
                   <TableHead className="hidden md:table-cell text-black"><b>Overall Score</b></TableHead>
                 </>
               )}
@@ -115,7 +115,7 @@ export function PatientsTable({
                 </>
               )}
               {activeTab === "precon" && (
-                <TableHead className="hidden md:table-cell text-black"><b>Pre-Condition Score</b></TableHead>
+                <TableHead className="hidden md:table-cell text-black"><b>Predisposition Score</b></TableHead>
               )}
               <TableHead>
                 <span className="sr-only">Actions</span>
