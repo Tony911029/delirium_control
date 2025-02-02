@@ -1,76 +1,3 @@
-// import 'server-only';
-
-// import { neon } from '@neondatabase/serverless';
-// import { drizzle } from 'drizzle-orm/neon-http';
-// import {
-//   pgTable,
-//   text,
-//   numeric,
-//   integer,
-//   timestamp,
-//   pgEnum,
-//   serial
-// } from 'drizzle-orm/pg-core';
-// import { count, eq, ilike } from 'drizzle-orm';
-// import { createInsertSchema } from 'drizzle-zod';
-
-// export const db = drizzle(neon(process.env.POSTGRES_URL!));
-
-// export const statusEnum = pgEnum('status', ['active', 'inactive', 'archived']);
-
-// export const products = pgTable('products', {
-//   id: serial('id').primaryKey(),
-//   imageUrl: text('image_url').notNull(),
-//   name: text('name').notNull(),
-//   status: statusEnum('status').notNull(),
-//   price: numeric('price', { precision: 10, scale: 2 }).notNull(),
-//   stock: integer('stock').notNull(),
-//   availableAt: timestamp('available_at').notNull()
-// });
-
-// export type SelectProduct = typeof products.$inferSelect;
-// export const insertProductSchema = createInsertSchema(products);
-
-// export async function getProducts(
-//   search: string,
-//   offset: number
-// ): Promise<{
-//   products: SelectProduct[];
-//   newOffset: number | null;
-//   totalProducts: number;
-// }> {
-//   // Always search the full table, not per page
-//   if (search) {
-//     return {
-//       products: await db
-//         .select()
-//         .from(products)
-//         .where(ilike(products.name, `%${search}%`))
-//         .limit(1000),
-//       newOffset: null,
-//       totalProducts: 0
-//     };
-//   }
-
-//   if (offset === null) {
-//     return { products: [], newOffset: null, totalProducts: 0 };
-//   }
-
-//   let totalProducts = await db.select({ count: count() }).from(products);
-//   let moreProducts = await db.select().from(products).limit(5).offset(offset);
-//   let newOffset = moreProducts.length >= 5 ? offset + 5 : null;
-
-//   return {
-//     products: moreProducts,
-//     newOffset,
-//     totalProducts: totalProducts[0].count
-//   };
-// }
-
-// export async function deleteProductById(id: number) {
-//   await db.delete(products).where(eq(products.id, id));
-// }
-
 interface PatientNotes {
   paramedic: string;
   nurse: string;
@@ -78,7 +5,7 @@ interface PatientNotes {
   social_work: string;
 }
 
-interface EnrichedNotes {
+export interface EnrichedNotes {
   [key: string]: {
     classification: boolean | number;
     enrichment_text: string | null;
@@ -254,15 +181,9 @@ export const getPatients = (): Patient[] => [
         enrichment_text: 'No signs of UTI or pneumonia',
         note_source: 'physician'
       },
-      fever_or_abnormal_temperature_fluctuations: {
-        classification: false,
-        enrichment_text: 'Temperature 36.7°C; no fever detected',
-        note_source: 'nurse'
-      },
       pre_existing_dehydration_or_malnutrition: {
         classification: true,
-        enrichment_text:
-          'Dehydration suspected; mucous membranes dry; IV fluids initiated',
+        enrichment_text: 'Dehydration suspected; mucous membranes dry',
         note_source: 'nurse'
       },
       limited_mobility: {
@@ -291,6 +212,17 @@ export const getPatients = (): Patient[] => [
         classification: true,
         enrichment_text:
           'Wears glasses but struggles to read medication labels',
+        note_source: 'paramedic'
+      },
+      social_isolation: {
+        classification: true,
+        enrichment_text:
+          'Lives alone, no nearby family; rarely leaves the house',
+        note_source: 'social_work'
+      },
+      neglect_or_unsanitary_living_conditions: {
+        classification: true,
+        enrichment_text: 'Cluttered home with rotten food; unsafe environment',
         note_source: 'paramedic'
       }
     },
@@ -422,7 +354,7 @@ export const getPatients = (): Patient[] => [
       pre_hospital_sleep_deprivation: {
         classification: false,
         enrichment_text: null,
-        note_source: 'paramedic' // No mention of pre-hospital sleep deprivation in reports
+        note_source: 'paramedic'
       },
       glasgow_coma_scale: {
         classification: 14,
@@ -447,11 +379,6 @@ export const getPatients = (): Patient[] => [
           'No signs of active infection such as UTI or pneumonia',
         note_source: 'physician'
       },
-      fever_or_abnormal_temperature_fluctuations: {
-        classification: false,
-        enrichment_text: 'No fever noted; temperature remained stable',
-        note_source: 'nurse'
-      },
       pre_existing_dehydration_or_malnutrition: {
         classification: true,
         enrichment_text:
@@ -461,27 +388,39 @@ export const getPatients = (): Patient[] => [
       limited_mobility: {
         classification: false,
         enrichment_text: null,
-        note_source: 'physician' // No mention of mobility issues in the assessment
+        note_source: 'physician'
       },
       cognitive_impairment: {
-        classification: false,
-        enrichment_text: null,
-        note_source: 'social_work' // No cognitive impairments like dementia noted
+        classification: true,
+        enrichment_text: 'Altered mental status, lethargic, slurred speech',
+        note_source: 'paramedic'
       },
       recent_major_surgery: {
         classification: false,
         enrichment_text: null,
-        note_source: 'physician' // No mention of recent major surgery
+        note_source: 'physician'
       },
       chronic_pain_conditions: {
         classification: false,
         enrichment_text: null,
-        note_source: 'physician' // No chronic pain condition or long-term opioid use reported
+        note_source: 'physician'
       },
       sensory_impairments: {
         classification: false,
         enrichment_text: null,
-        note_source: 'paramedic' // No mention of hearing or vision impairment
+        note_source: 'paramedic'
+      },
+      malnutrition_risk: {
+        classification: true,
+        enrichment_text:
+          'Frequent skipping of meals, non-adherence to diabetes medication',
+        note_source: 'social_work'
+      },
+      neglect_or_unsanitary_living_conditions: {
+        classification: true,
+        enrichment_text:
+          'Cluttered home with unopened food containers and alcohol bottles',
+        note_source: 'paramedic'
       }
     },
     pre_condition_score: 6,
@@ -604,77 +543,78 @@ export const getPatients = (): Patient[] => [
     enriched_notes: {
       age_greater_than_65: {
         classification: true,
-        enrichment_text: '76 years old',
+        enrichment_text: '72 years old',
         note_source: 'physician'
       },
       drug_and_alcohol_withdrawal: {
-        classification: false,
-        enrichment_text: null,
-        note_source: 'physician' // Mentioned in physician's note: "Blood alcohol level elevated at 0.18%."
+        classification: true,
+        enrichment_text:
+          'History of alcohol use; CIWA protocol initiated for withdrawal monitoring',
+        note_source: 'nurse'
       },
       pre_hospital_sleep_deprivation: {
         classification: false,
         enrichment_text: null,
-        note_source: 'paramedic' // Paramedic mentions patient found in recliner appearing lethargic.
+        note_source: 'paramedic'
       },
       glasgow_coma_scale: {
-        classification: 13,
-        enrichment_text: 'GCS: 13 (E4, V4, M5), disoriented to time and date',
-        note_source: 'nurse' // Nurse notes GCS assessment.
+        classification: 14,
+        enrichment_text:
+          'GCS: 14 (E4, V4, M6), lethargic but rousable to verbal stimuli',
+        note_source: 'nurse'
       },
       threat_alert: {
         classification: false,
         enrichment_text: null,
-        note_source: 'paramedic' // Paramedic does not report any immediate violence or agitation.
+        note_source: 'paramedic'
       },
       droplet_precaution: {
         classification: false,
         enrichment_text: null,
-        note_source: 'nurse' // No mention of respiratory infections or COVID-related symptoms.
+        note_source: 'nurse'
       },
       active_infections: {
         classification: false,
-        enrichment_text: 'No signs of UTI or pneumonia',
-        note_source: 'physician' // Physician notes no acute infections.
+        enrichment_text:
+          'No signs of active infection such as UTI or pneumonia',
+        note_source: 'physician'
       },
       fever_or_abnormal_temperature_fluctuations: {
         classification: false,
-        enrichment_text: 'Temperature 36.7°C; no fever detected',
-        note_source: 'nurse' // Nurse monitors vitals, including temperature.
+        enrichment_text: 'No fever noted; temperature remained stable',
+        note_source: 'nurse'
       },
       pre_existing_dehydration_or_malnutrition: {
         classification: true,
         enrichment_text:
-          'Dehydration suspected; mucous membranes dry; IV fluids initiated',
-        note_source: 'nurse' // Nurse notes dehydration signs and intervention.
+          'Dehydration suspected; dry mucous membranes; tachycardia (HR: 98)',
+        note_source: 'nurse'
       },
       limited_mobility: {
-        classification: true,
-        enrichment_text:
-          'Reports hip pain; bruising on left hip; fall precautions initiated',
-        note_source: 'nurse' // Nurse assesses pain and initiates fall precautions.
+        classification: false,
+        enrichment_text: null,
+        note_source: 'physician'
       },
       cognitive_impairment: {
         classification: true,
         enrichment_text:
-          'Disoriented to time and date; increased forgetfulness reported',
-        note_source: 'social_work' // Social worker mentions cognitive concerns and forgetfulness.
+          'Found lethargic with slurred speech; altered mental status',
+        note_source: 'paramedic'
       },
       recent_major_surgery: {
         classification: false,
         enrichment_text: null,
-        note_source: 'physician' // No mention of recent surgery in physician's report.
+        note_source: 'physician'
       },
       chronic_pain_conditions: {
         classification: false,
         enrichment_text: null,
-        note_source: 'physician' // No long-term narcotic use mentioned in physician's note.
+        note_source: 'physician'
       },
       sensory_impairments: {
-        classification: true,
-        enrichment_text:
-          'Wears glasses but struggles to read medication labels',
-        note_source: 'paramedic' // Paramedic reports patient unable to read labels with glasses.
+        classification: false,
+        enrichment_text: null,
+        note_source: 'paramedic'
       }
     },
     pre_condition_score: 3,
