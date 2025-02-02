@@ -245,7 +245,7 @@ export default function PatientCondition({ patient }: { patient: Patient }) {
                   <XAxis dataKey="time" label={{ value: 'Time', position: 'insideBottom', offset: -5 }} />
                   <YAxis>
                     <Label 
-                      value="USG" 
+                      value="mL" 
                       angle={-90} 
                       position="insideLeft" 
                       offset={10}
