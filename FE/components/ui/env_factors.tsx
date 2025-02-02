@@ -81,7 +81,7 @@ export default function EnvironmentalFactors({ patient }: { patient: Patient; })
               <p className="text-4xl font-semibold">{currentData.lighting} lm</p>
             </CardContent>
           </Card>
-          <Card className={getBgClass(currentData.noise, 20, 40)}>
+          <Card className={getBgClass(currentData.noise, 30, 70)}>
             <CardContent>
               <h2 className="text-md my-2">Noise Level</h2>
               <p className="text-4xl font-semibold">{currentData.noise} db</p>

@@ -159,7 +159,7 @@ export const getPatients = (): Patient[] => [
     env_score_fields: {
       lighting_levels: Array(20).fill(3),
       noise_levels: [
-        6, 7, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6
+        65, 70, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65, 65
       ],
       time_in_hallway: Array(20).fill(120),
       room_change_frequency: Array(20).fill(1),
@@ -329,7 +329,7 @@ export const getPatients = (): Patient[] => [
         3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3
       ],
       noise_levels: [
-        5, 5, 6, 6, 6, 5, 5, 5, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3
+        50, 50, 60, 60, 60, 50, 50, 50, 40, 40, 40, 40, 40, 40, 30, 30, 30, 30, 30, 30
       ],
       time_in_hallway: Array(20).fill(100),
       room_change_frequency: Array(20).fill(1),
@@ -497,7 +497,7 @@ export const getPatients = (): Patient[] => [
         3, 3, 4, 4, 4, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
       ],
       noise_levels: [
-        4, 4, 5, 5, 5, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3
+        40, 40, 50, 50, 50, 40, 40, 40, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30
       ],
       time_in_hallway: Array(20).fill(0).map((_, i) => i < 8 ? 40 + i * 5 : i < 10 ? 70 + (i - 8) * 5 : 80 + (i - 10) * 5),
       room_change_frequency: [0, 0, ...Array(18).fill(1)],
