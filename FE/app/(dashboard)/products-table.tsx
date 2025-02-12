@@ -235,6 +235,15 @@ export function PatientsTable({
                   <TableHead className="hidden md:table-cell">
                     Number of Patients in Room
                   </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Room Number
+                  </TableHead>
+                  <TableHead className="hidden md:table-cell">
+                    Room Cleanliness
+                  </TableHead>
+                  <TableHead className="text-black">
+                    <b>Room Status</b>
+                  </TableHead>
                 </>
               )}
               {activeTab === 'precon' && (

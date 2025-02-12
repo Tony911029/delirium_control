@@ -3,7 +3,7 @@ import { TableCell, TableRow } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
-import { Patient, PatientStatus } from '@/lib/db';
+import { Patient, PatientStatus, RoomPatientStatus } from '@/lib/db';
 import { useRouter } from 'next/navigation';
 import { format } from 'date-fns';
 
@@ -24,17 +24,32 @@ export function PatientRow({
     'Program Exclusion': 'bg-gray-300 text-gray-700',
     'Active Monitoring': 'bg-purple-200 text-purple-800'
   };
+  const room_status = patient.room_status;
+  const roomstatusColors: Record<RoomPatientStatus, string> = {
+    'Vacant': 'bg-blue-200 text-blue-800',
+    'Occupied': 'bg-orange-200 text-orange-800'
+  };
 
   const [selectedStatus, setSelectedStatus] =
     useState<PatientStatus>(patient_status);
+  const [selectedRoomStatus, setSelectedRoomStatus] = 
+    useState<RoomPatientStatus>(room_status);
   const statuses: PatientStatus[] = Object.keys(
     statusColors
   ) as PatientStatus[];
-  const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const roomstatuses: RoomPatientStatus[] = Object.keys(
+    roomstatusColors
+  ) as RoomPatientStatus[];
+
+const handleStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newStatus = event.target.value as PatientStatus;
     setSelectedStatus(newStatus);
   };
 
+  const handleRoomStatusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newRoomStatus = event.target.value as RoomPatientStatus;
+    setSelectedRoomStatus(newRoomStatus);
+  };
   return (
     <TableRow
       onClick={() => router.push(`/patient/${patient.id}`)}
@@ -156,6 +171,33 @@ export function PatientRow({
           </TableCell>
           <TableCell className="hidden sm:table-cell">
             {patient.env_score_fields.number_of_patients_in_room[0]}
+          </TableCell>
+          <TableCell className="hidden sm:table-cell">
+            {patient.room_number}
+          </TableCell>
+          <TableCell className="hidden sm:table-cell">
+            {patient.room_cleanliness}
+          </TableCell>
+          <TableCell
+            className="hidden sm:table-cell"
+            onClick={(event) => event.stopPropagation()} // added to exclude this cell from row click logic
+          >
+            <div className="w-[120px]">
+              <select
+                value={selectedRoomStatus}
+                onChange={(event) => {
+                  event.stopPropagation();
+                  handleRoomStatusChange(event);
+                }}
+                className={`px-2 py-1 w-full rounded-lg text-xs font-medium border-0 focus:outline-none truncate ${roomstatusColors[selectedRoomStatus]}`}
+              >
+                {roomstatuses.map((roomstatus) => (
+                  <option key={roomstatus} value={roomstatus} className="text-black whitespace-normal">
+                    {roomstatus}
+                  </option>
+                ))}
+              </select>
+            </div>
           </TableCell>
         </>
       )}

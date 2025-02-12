@@ -29,6 +29,10 @@ export type PatientStatus =
   | 'Program Exclusion'
   | 'Active Monitoring';
 
+  export type RoomPatientStatus =
+  | 'Occupied'
+  | 'Vacant';
+
 export type Patient = {
   id: string;
   first_name: string;
@@ -39,6 +43,9 @@ export type Patient = {
   physician_name: string;
   nurse_name: string;
   is_included: boolean;
+  room_number: string;
+  room_cleanliness: 'Clean' | 'Normal' | 'Dirty';
+  room_status: 'Occupied' | 'Vacant';
   patient_status: PatientStatus;
   vitals: {
     temperature: number[];
@@ -98,7 +105,6 @@ export const getEmployees = (): Employee[] => [
     time_ends: '2024-02-02T08:00:00'
   }
 ];
-
 export const getPatients = (): Patient[] => [
   {
     id: '1',
@@ -111,6 +117,9 @@ export const getPatients = (): Patient[] => [
     nurse_name: 'Nurse Jane Doe',
     is_included: true,
     patient_status: 'Active Monitoring',
+    room_number: '101',
+    room_cleanliness: 'Clean',
+    room_status: 'Occupied',
     vitals: {
       temperature: [
         36.5, 36.6, 36.4, 36.7, 36.8, 36.3, 36.9, 36.5, 36.4, 36.6, 36.7, 36.5,
@@ -284,6 +293,9 @@ export const getPatients = (): Patient[] => [
     nurse_name: 'Nurse Jane Doe',
     is_included: true,
     patient_status: 'Program Exclusion',
+    room_number: '102',
+    room_cleanliness: 'Normal',
+    room_status: 'Occupied',
     vitals: {
       temperature: [
         37.0, 36.9, 36.8, 37.2, 37.1, 37.3, 37.5, 37.7, 37.8, 37.6, 37.4, 37.2,
@@ -337,9 +349,7 @@ export const getPatients = (): Patient[] => [
     },
     patient_score: [3, 4, 5, 6, 7, 8, 9, 9, 8, 7, 6, 5, 5, 4, 3, 3, 2, 2, 2, 2],
     env_score_fields: {
-      lighting_levels: [
-        3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3
-      ],
+      lighting_levels: Array(20).fill(3),
       noise_levels: [
         50, 50, 60, 60, 60, 50, 50, 50, 40, 40, 40, 40, 40, 40, 30, 30, 30, 30,
         30, 30
@@ -457,6 +467,9 @@ export const getPatients = (): Patient[] => [
     nurse_name: 'Nurse Jane Doe',
     is_included: true,
     patient_status: 'Discharged - No Delirium',
+    room_number: '103',
+    room_cleanliness: 'Dirty',
+    room_status: 'Vacant',
     vitals: {
       temperature: [
         36.8, 37.0, 37.2, 37.4, 37.6, 37.9, 38.2, 38.4, 38.5, 38.3, 38.1, 37.8,
@@ -626,6 +639,9 @@ export const getPatients = (): Patient[] => [
     nurse_name: 'Nurse Emily Brown',
     is_included: true,
     patient_status: 'Active Monitoring',
+    room_number: '104',
+    room_cleanliness: 'Clean',
+    room_status: 'Occupied',
     vitals: {
       temperature: [
         37.2, 37.8, 38.5, 39.1, 39.4, 39.2, 38.9, 38.5, 38.2, 37.9, 37.6, 37.4,
@@ -688,9 +704,7 @@ export const getPatients = (): Patient[] => [
         30, 45, 60, 75, 80, 70, 60, 50, 40, 35, 30, 25, 20, 20, 20, 20, 20, 20,
         20, 20
       ],
-      room_change_frequency: [
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-      ],
+      room_change_frequency: Array(20).fill(0),
       number_of_patients_in_room: [
         1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
       ]
@@ -709,7 +723,7 @@ export const getPatients = (): Patient[] => [
     enriched_notes: {
       age_greater_than_65: {
         classification: true,
-        enrichment_text: '81 years old',
+        enrichment_text: '72 years old',
         note_source: 'physician'
       },
       drug_and_alcohol_withdrawal: {
@@ -785,7 +799,7 @@ export const getPatients = (): Patient[] => [
     },
     pre_condition_score: 3,
     overall_score: [
-      4, 6, 9, 10, 10, 9, 8, 7, 6, 5, 4, 3, 2, 2, 2, 2, 2, 2, 2, 2
+      7, 8, 8, 9, 9, 10, 10, 9, 8, 7, 6, 6, 5, 5, 4, 4, 3, 3, 2, 2
     ]
   },
   {
@@ -799,6 +813,9 @@ export const getPatients = (): Patient[] => [
     nurse_name: 'Nurse David Miller',
     is_included: true,
     patient_status: 'Discharged - No Delirium',
+    room_number: '105',
+    room_cleanliness: 'Normal',
+    room_status: 'Occupied',
     vitals: {
       temperature: [
         36.5, 36.6, 36.8, 37.1, 37.4, 37.8, 38.2, 38.6, 38.9, 38.7, 38.4, 38.1,
@@ -845,7 +862,9 @@ export const getPatients = (): Patient[] => [
       body_weight_change: Array(20).fill(0),
       hydration_levels: Array(20).fill(0)
     },
-    patient_score: [2, 3, 4, 6, 7, 8, 9, 9, 9, 8, 7, 6, 5, 4, 3, 2, 2, 1, 1, 1],
+    patient_score: [
+      2, 3, 4, 6, 7, 8, 9, 9, 9, 8, 7, 6, 5, 4, 3, 2, 2, 1, 1, 1
+    ],
     env_score_fields: {
       lighting_levels: [
         2, 2, 3, 4, 4, 4, 4, 4, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
@@ -946,7 +965,9 @@ export const getPatients = (): Patient[] => [
       }
     },
     pre_condition_score: 3,
-    overall_score: [2, 3, 4, 6, 7, 8, 9, 10, 9, 8, 7, 6, 5, 4, 3, 2, 2, 1, 1, 1]
+    overall_score: [
+      2, 3, 4, 6, 7, 8, 9, 10, 9, 8, 7, 6, 5, 4, 3, 2, 2, 1, 1, 1
+    ]
   },
   {
     id: '6',
@@ -959,6 +980,9 @@ export const getPatients = (): Patient[] => [
     nurse_name: 'Nurse Sarah Miller',
     is_included: true,
     patient_status: 'Discharged - Delirium Incident',
+    room_number: '106',
+    room_cleanliness: 'Dirty',
+    room_status: 'Occupied',
     vitals: {
       temperature: Array(20).fill(36.8),
       pulse_rate: Array(20).fill(72),
@@ -1086,6 +1110,9 @@ export const getPatients = (): Patient[] => [
     nurse_name: 'Nurse Jack Thompson',
     is_included: true,
     patient_status: 'Program Exclusion',
+    room_number: '107',
+    room_cleanliness: 'Clean',
+    room_status: 'Vacant',
     vitals: {
       temperature: [
         38.5, 38.8, 39.2, 39.5, 39.8, 40.1, 40.2, 40.2, 40.1, 40.0, 39.9, 39.8,
@@ -1231,6 +1258,9 @@ export const getPatients = (): Patient[] => [
     nurse_name: 'Nurse Mary Johnson',
     is_included: true,
     patient_status: 'Active Monitoring',
+    room_number: '108',
+    room_cleanliness: 'Normal',
+    room_status: 'Occupied',
     vitals: {
       temperature: Array(20).fill(37.1),
       pulse_rate: Array(20).fill(78),
@@ -1358,6 +1388,9 @@ export const getPatients = (): Patient[] => [
     nurse_name: 'Nurse Tom Anderson',
     is_included: true,
     patient_status: 'Discharged - Delirium Incident',
+    room_number: '109',
+    room_cleanliness: 'Dirty',
+    room_status: 'Occupied',
     vitals: {
       temperature: [
         36.8, 37.2, 38.5, 39.2, 39.8, 38.9, 37.8, 37.2, 38.4, 39.1, 39.5, 38.6,
@@ -1522,7 +1555,9 @@ export const getPatients = (): Patient[] => [
       }
     },
     pre_condition_score: 3,
-    overall_score: [2, 4, 7, 9, 10, 8, 4, 2, 6, 8, 9, 7, 3, 2, 5, 7, 8, 6, 3, 2]
+    overall_score: [
+      2, 4, 7, 9, 10, 8, 4, 2, 6, 8, 9, 7, 3, 2, 5, 7, 8, 6, 3, 2
+    ]
   },
   {
     id: '10',
@@ -1535,6 +1570,9 @@ export const getPatients = (): Patient[] => [
     nurse_name: 'Nurse Faith Martinez',
     is_included: true,
     patient_status: 'Discharged - No Delirium',
+    room_number: '110',
+    room_cleanliness: 'Clean',
+    room_status: 'Occupied',
     vitals: {
       temperature: [
         36.5, 38.2, 37.0, 39.5, 37.2, 38.8, 37.4, 39.2, 37.6, 38.5, 37.8, 39.0,
@@ -1577,7 +1615,7 @@ export const getPatients = (): Patient[] => [
         6, 18, 6, 24, 6, 18, 6, 24, 6, 18, 6, 24, 6, 18, 6, 18, 6, 24, 6, 24
       ],
       sleep_deprivation: [
-        1, 12, 2, 16, 3, 14, 4, 15, 5, 13, 6, 16, 2, 12, 3, 14, 4, 15, 5, 16
+        1, 12, 2, 10, 3, 9, 4, 11, 5, 8, 6, 9, 2, 12, 3, 9, 4, 11, 5, 10
       ],
       body_weight_change: Array(20).fill(0),
       hydration_levels: Array(20).fill(0)
@@ -1603,7 +1641,9 @@ export const getPatients = (): Patient[] => [
         1, 4, 1, 5, 2, 4, 2, 5, 3, 4, 3, 5, 1, 4, 2, 4, 2, 5, 3, 5
       ]
     },
-    env_score: [1, 8, 2, 10, 3, 9, 4, 9, 5, 8, 6, 9, 2, 8, 3, 9, 4, 9, 5, 10],
+    env_score: [
+      1, 8, 2, 10, 3, 9, 4, 9, 5, 8, 6, 9, 2, 8, 3, 9, 4, 9, 5, 10
+    ],
     notes: {
       paramedic:
         'Family reports worsening confusion over the past 24 hours. Found sitting in recliner, appearing lethargic with slurred speech. Home environment cluttered with unopened food containers, empty alcohol bottles noted near bedside. EMS glucometer reads blood glucose 410 mg/dL. Strong odor of alcohol present. Transported for further assessment due to altered mental status and concern for metabolic imbalance.',
@@ -1707,6 +1747,9 @@ export const getPatients = (): Patient[] => [
     nurse_name: 'Nurse Linda Martinez',
     is_included: true,
     patient_status: 'Active Monitoring',
+    room_number: '111',
+    room_cleanliness: 'Normal',
+    room_status: 'Vacant',
     vitals: {
       temperature: [
         36.5, 38.2, 37.0, 39.5, 37.2, 38.8, 37.4, 39.2, 37.6, 38.5, 37.8, 39.0,
@@ -1749,7 +1792,7 @@ export const getPatients = (): Patient[] => [
         6, 18, 6, 24, 6, 18, 6, 24, 6, 18, 6, 24, 6, 18, 6, 18, 6, 24, 6, 24
       ],
       sleep_deprivation: [
-        1, 12, 2, 16, 3, 14, 4, 15, 5, 13, 6, 16, 2, 12, 3, 14, 4, 15, 5, 16
+        1, 12, 2, 10, 3, 9, 4, 11, 5, 8, 6, 9, 2, 12, 3, 9, 4, 11, 5, 10
       ],
       body_weight_change: Array(20).fill(0),
       hydration_levels: Array(20).fill(0)
@@ -1775,7 +1818,9 @@ export const getPatients = (): Patient[] => [
         1, 4, 1, 5, 2, 4, 2, 5, 3, 4, 3, 5, 1, 4, 2, 4, 2, 5, 3, 5
       ]
     },
-    env_score: [1, 8, 2, 10, 3, 9, 4, 9, 5, 8, 6, 9, 2, 8, 3, 9, 4, 9, 5, 10],
+    env_score: [
+      1, 8, 2, 10, 3, 9, 4, 9, 5, 8, 6, 9, 2, 8, 3, 9, 4, 9, 5, 10
+    ],
     notes: {
       paramedic:
         'Family reports worsening confusion over the past 24 hours. Found sitting in recliner, appearing lethargic with slurred speech. Home environment cluttered with unopened food containers, empty alcohol bottles noted near bedside. EMS glucometer reads blood glucose 410 mg/dL. Strong odor of alcohol present. Transported for further assessment due to altered mental status and concern for metabolic imbalance.',
